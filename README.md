@@ -13,6 +13,7 @@
 * [郭扛扛](https://github.com/631540886/Ycyy)
 * [陈海源](https://github.com/chenhaiyuan53880/Ycyy)
 * [周祝森](https://github.com/GitHubMrZhou/Ycyy)
+* [杨举成](https://github.com/tyhg001/Ycyy)
 
 ## deploy（后期加）
 **Docker部署**
