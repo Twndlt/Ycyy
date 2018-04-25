@@ -7,6 +7,7 @@
 * [唐诚](https://github.com/woxingyiyi/Ycyy)
 * [徐家琪](https://github.com/xujiaqi/Ycyy)
 * [王鹏程](https://github.com/Twndlt/Ycyy.git)
+* [段斌](https://github.com/djyldddb1717/Ycyy)
 * [辅小红](https://github.com/fxiaohong/Ycyy)
 * [崔燕南](https://github.com/c502556190/Ycyy)
 * [许明伟](https://github.com/CherishMIWD/Ycyy)
