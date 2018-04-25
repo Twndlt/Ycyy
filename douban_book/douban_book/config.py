@@ -16,6 +16,8 @@ class DevelopmentsConfig(BaseConfig):
     DEBUG = True
     SECRET_KEY = '7d58afd5-5fdb-48b0-9c99-3466c2838745'
     JSON_AS_ASCII = False
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@localhost:3306/mytest?charset=utf8'
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
 class TestingConfig:

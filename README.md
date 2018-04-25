@@ -16,7 +16,7 @@
 * [吴有为](https://github.com/1191464964/Ycyy)
 * [周祝森](https://github.com/GitHubMrZhou/Ycyy)
 * [杨举成](https://github.com/tyhg001/Ycyy)
-
+* [赵鹏飞](https://github.com/zpfzpf1/Ycyy)
 ## deploy（后期加）
 **Docker部署**
 

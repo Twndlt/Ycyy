@@ -11,7 +11,7 @@ book = Blueprint('book', __name__, url_prefix='/book')
 
 
 @book.route('/search/<q>/', methods=["GET"])
-def index(q, start, count):
+def index(q):
     """
     图书主页
     需要序列化 serializers
