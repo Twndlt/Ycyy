@@ -7,6 +7,7 @@
 * [唐诚](https://github.com/woxingyiyi/Ycyy)
 * [徐家琪](https://github.com/xujiaqi/Ycyy)
 * [王鹏程](https://github.com/Twndlt/Ycyy.git)
+* [段斌](https://github.com/djyldddb1717/Ycyy)
 ## deploy（后期加）
 **Docker部署**
 
