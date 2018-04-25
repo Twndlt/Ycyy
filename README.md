@@ -12,6 +12,7 @@
 * [许明伟](https://github.com/CherishMIWD/Ycyy)
 * [郭扛扛](https://github.com/631540886/Ycyy)
 * [陈海源](https://github.com/chenhaiyuan53880/Ycyy)
+* [吴有为](https://github.com/1191464964/Ycyy)
 
 ## deploy（后期加）
 **Docker部署**
