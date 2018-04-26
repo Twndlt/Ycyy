@@ -1,44 +1,22 @@
+{# 继承模板，禁止更改！#}
+{# 继承模板，禁止更改！#}
+{# 继承模板，禁止更改！#}
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>国家创新创业政策信息服务网</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="renderer" content="webkit">
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="{{ url_for('static',filename="css/base.css") }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename="css/yzhStyle.css") }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename="css/common.css") }} ">
-    <script type="text/javascript" src="{{ url_for('static',filename="js/jquery-1.8.3.min.js") }}"></script>
-    <script type="text/javascript" src="{{ url_for('static',filename="js/imgHandle.js") }}"></script>
-    {% block css %}{% endblock %}
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    {% block css %}
+        <link rel="stylesheet" href="{{ url_for('static',filename="css/base.css") }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename="css/yzhStyle.css") }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename="css/common.css") }} ">
+        <script type="text/javascript" src="{{ url_for('static',filename="js/jquery-1.8.3.min.js") }}"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename="js/imgHandle.js") }}"></script>
+    {% endblock %}
 </head>
 <body>
-<div class="headAll">
-    <div class="header"><a class="iBlock" href="index.html"><img src="{{ url_for('static',filename="images/logo.png") }}"></a>
-        <div class="searchBox fr">
-            <form class="search" action="" method="post"><input class="sWord" type="text" placeholder="站内搜索"
-                                                                id="search-input"><input class="sBtn" name="Submit"
-                                                                                         value="" id="search-btn">
-            </form>
-            <ul class="fix">
-                <li class="mobile"><img src="{{ url_for('static',filename="images/mobileMa.png") }}"></li>
-                <li class="weixin"><img
-                        src="http://sccs.youedata.com:80/SCData/MediaImg/imgFolder/b80516ba-9103-4e04-8fc6-2554fbd986d7.jpg">
-                </li>
-                <li class="sina"><img
-                        src="http://sccs.youedata.com:80/SCData/MediaImg/imgFolder/6d5e34ec-91b3-4e02-bfea-21fbc36c7b82.jpg">
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="headNav">
-    <div><a href="index.html">首页</a><a href="policyKu.html">政策库<i id="gozcdt">政策动态</i><i class="navindex2" id="gozck">政策查询</i></a><a
-            href="analyzeMap.html">政策分析</a><a href="baseExp.html">示范基地<i id="gojddt">基地动态</i><i class="navindex2"
-                                                                                                id="jdk">基地库</i></a><a
-            href="activeAfter.html">活动跟踪</a><a href="serviceOver.html">服务拓展</a><a class="navLineNo" href="word.html">建言献策</a>
-    </div>
-</div>
-<!-- 轮播图开始 -->
+
+{# 轮播图开始 #}
 <div class="slider-container">
     <ul class="slider-body" id="index-slider-body" style="left: -1200px;">
 
@@ -61,7 +39,7 @@
     <div class="up_focus" id="index-focus"><span class=""></span><span class="on"></span><span class=""></span><span
             class=""></span></div>
     <div class="prev" id="index-prev"><img src="{{ url_for('static',filename="images/i_prev.png") }}"></div>
-    <div class="next" id="index-next"><img src="{{  url_for('static',filename="images/i_next.png") }}"></div>
+    <div class="next" id="index-next"><img src="{{ url_for('static',filename="images/i_next.png") }}"></div>
     <div class="bottom-bg" id="index-title-ul">
 
         <li class=""><a href="dtxq.html?id=ff80808162e79e010162eb7cbe1300e1" target="_blank">2018年“创响中国”活动在杨浦启动
@@ -74,395 +52,19 @@
         </li>
     </div>
 </div>
-<!-- 轮播图结束 -->
-<div class="center">
-    <div class="main-container">
-        <!-- 双创动态开始 -->
-        <div class="scdt-container">
-            <!-- <div class="index-public-title">
-                <a href="dongTaiList.html">最新动态</a>
-            </div> -->
-            <div class="top">
-                <div class="buwei">
-                    <div class="dt-title">
-                        <div class="label">
-                            <div class="img-wrapper"><img src="images/buwei.png"></div>
-                            <label>部委</label>
-                        </div>
-                        <a href="dongTaiList.html?type=0" class="more-link">更多
-                            <div class="img-wrapper"><img src="images/more_icon.png"></div>
-                        </a>
-                    </div>
-                    <ul class="buwei-list" id="buwei-list">
+{#  轮播图结束 #}
 
-                        <li><a href="dtxq.html?id=ff80808162e79e010162eb7cbe1300e1" target="_blank">
-                            <div class="left"><img
-                                    src="http://sccs.youedata.com/icnppServer/ueditor/20180422/1524369275141002289.jpg">
-                            </div>
-                            <div class="right"><p class="p1">2018年“创响中国”活动在杨浦启动 中外“大咖”对话创意创新 </p>
-                                <p class="p2">今天是首个“世界创意创新日”，由国家发改委和中国科协主办的2018年“创响中国”活动，4月21日上午在上海和北京同时举行...</p>
-                                <p class="p3"><label class="label1">来源：新民晚报</label><label
-                                        class="label2">2018-04-22</label></p></div>
-                        </a></li>
-                        <li><a href="dtxq.html?id=ff80808162ec5fa20162ec7e209a0025" target="_blank">
-                            <div class="left"><img
-                                    src="http://sccs.youedata.com/icnppServer/ueditor/20180422/1524386829750028200.jpg">
-                            </div>
-                            <div class="right"><p class="p1">习近平出席庆祝海南建省办经济特区30周年大会并发表重要讲话</p>
-                                <p class="p2">4月13日，中共中央总书记、国家主席、中央军委主席习近平在海南省人大会堂出席庆祝海南建省办经济特区30周年大会并发表重要...</p>
-                                <p class="p3"><label class="label1">来源：新华社</label><label
-                                        class="label2">2018-04-22</label></p></div>
-                        </a></li>
-                    </ul>
-                </div>
-                <div class="shoulu">
-                    <div class="title">
-                        <div class="img-wrapper"><img src="images/shoulu_icon.png"></div>
-                        <label>热门</label>
-                    </div>
-                    <div class="shoulu-container" style="height: 311px;">
-                        <!-- <div class="shoulu-item" id="shoulu-item1">
-                            <div class="img-wrapper"><img src="images/zhengce_icon.png"></div>
-                        </div>
-                        <div class="shoulu-item" id="shoulu-item2">
-                            <div class="img-wrapper"><img src="images/dongtai_icon.png"></div>
-                        </div>
-                        <div class="shoulu-item" id="shoulu-item3">
-                            <div class="img-wrapper"><img src="images/jidi_icon.png"></div>
-                        </div> -->
-                        <a href="cxzg.html"><img src="images/remen.png" style="width: 100%;height: 100%;"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="bottom">
-                <ul class="container">
-                    <li class="dongtai-bottom-item">
-                        <div class="dt-title">
-                            <div class="label">
-                                <div class="img-wrapper"><img src="images/difang.png"></div>
-                                <label>地方</label>
-                            </div>
-                            <a href="dongTaiList.html?type=1" class="more-link">更多
-                                <div class="img-wrapper"><img src="images/more_icon.png"></div>
-                            </a>
-                        </div>
-                        <ul class="dongtai-bottom-item-list" id="difang-list">
-
-                            <div class="detail"><a href="dtxq.html?id=ff80808162d285040162d2e7ec4c0378" target="_blank">
-                                <div class="left"><img
-                                        src="http://sccs.youedata.com/icnppServer/ueditor/20180417/1523956779607065555.jpg">
-                                </div>
-                                <div class="right"><p class="p1">中国电信的“雄安质量”与“创业担当”</p>
-                                    <p class="p2"><span>2018-04-03</span></p></div>
-                            </a></div>
-                            <li><a href="dtxq.html?id=ff80808162d285040162d2d5954002da" target="_blank">
-                                <div class="img-wrapper"><img src="images/list_arrow_icon.png"></div>
-                                <p class="content">资产公司成功举办“航天科工专场项目推介会”</p><span class="date">2018-04-17</span></a>
-                            </li>
-                            <li><a href="dtxq.html?id=ff80808162d65ca10162d76714440089" target="_blank">
-                                <div class="img-wrapper"><img src="images/list_arrow_icon.png"></div>
-                                <p class="content">《关于推进本市区域性股权市场规范健康发展的若干意见》政策解读</p><span
-                                    class="date">2018-04-18</span></a></li>
-                            <li><a href="dtxq.html?id=ff80808162d285040162d2d9530d02fa" target="_blank">
-                                <div class="img-wrapper"><img src="images/list_arrow_icon.png"></div>
-                                <p class="content">山西传媒学院成立院士专家工作站</p><span class="date">2018-04-04</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="dongtai-bottom-item">
-                        <div class="dt-title">
-                            <div class="label">
-                                <div class="img-wrapper"><img src="images/tuanti.png"></div>
-                                <label>社会团体</label>
-                            </div>
-                            <a href="dongTaiList.html?type=3" class="more-link">更多
-                                <div class="img-wrapper"><img src="images/more_icon.png"></div>
-                            </a>
-                        </div>
-                        <ul class="dongtai-bottom-item-list" id="shtt-list">
-
-                            <div class="detail"><a href="dtxq.html?id=ff80808162d285040162d2c154460216" target="_blank">
-                                <div class="left"><img
-                                        src="http://sccs.youedata.com/icnppServer/ueditor/20180417/1523954304106067702.png">
-                                </div>
-                                <div class="right"><p class="p1">徐延豪出席中国研究生创新实践系列大赛（2018）启...</p>
-                                    <p class="p2"><span>2018-04-04</span></p></div>
-                            </a></div>
-                            <li><a href="dtxq.html?id=ff80808162d285040162d2d9530d02fa" target="_blank">
-                                <div class="img-wrapper"><img src="images/list_arrow_icon.png"></div>
-                                <p class="content">山西传媒学院成立院士专家工作站</p><span class="date">2018-04-04</span></a></li>
-                            <li><a href="dtxq.html?id=ff80808162d285040162d2de594d030c" target="_blank">
-                                <div class="img-wrapper"><img src="images/list_arrow_icon.png"></div>
-                                <p class="content">“吉林大学鼎新讲座”首场报告会举办 </p><span class="date">2018-03-30</span></a></li>
-                            <li><a href="dtxq.html?id=ff80808162d285040162d2e29d8d033f" target="_blank">
-                                <div class="img-wrapper"><img src="images/list_arrow_icon.png"></div>
-                                <p class="content">黑龙江省科协八届二次全委会议召开</p><span class="date">2018-01-31</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="dongtai-bottom-item">
-                        <div class="dt-title">
-                            <div class="label">
-                                <div class="img-wrapper"><img src="images/jidi.png"></div>
-                                <label>基地</label>
-                            </div>
-                            <a href="dongTaiList.html?type=2" class="more-link">更多
-                                <div class="img-wrapper"><img src="images/more_icon.png"></div>
-                            </a>
-                        </div>
-                        <ul class="dongtai-bottom-item-list" id="jidi-list">
-
-                            <div class="detail"><a href="dtxq.html?id=ff80808162d192db0162d208ae130079" target="_blank">
-                                <div class="left"><img
-                                        src="http://sccs.youedata.com/icnppServer/ueditor/20180417/1523942167267043732.jpg">
-                                </div>
-                                <div class="right"><p class="p1">上海交大校友会成立医疗器械分会并举行医疗器械发展高...</p>
-                                    <p class="p2"><span>2018-04-12</span></p></div>
-                            </a></div>
-                            <li><a href="dtxq.html?id=ff80808162d285040162d2e7ec4c0378" target="_blank">
-                                <div class="img-wrapper"><img src="images/list_arrow_icon.png"></div>
-                                <p class="content">中国电信的“雄安质量”与“创业担当”</p><span class="date">2018-04-03</span></a></li>
-                            <li><a href="dtxq.html?id=ff80808162d285040162d2d5954002da" target="_blank">
-                                <div class="img-wrapper"><img src="images/list_arrow_icon.png"></div>
-                                <p class="content">资产公司成功举办“航天科工专场项目推介会”</p><span class="date">2018-04-17</span></a>
-                            </li>
-                            <li><a href="dtxq.html?id=ff808081601701ba016017b1656300b0" target="_blank">
-                                <div class="img-wrapper"><img src="images/list_arrow_icon.png"></div>
-                                <p class="content">2017年“创响中国”收官之站—合肥站启幕</p><span class="date">2017-11-30</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- 双创动态结束 -->
-        <!-- 双创专题开始 -->
-        <div class="sczt-container">
-            <div class="index-public-title">
-                <a href="javascript:;">专题专栏</a>
-            </div>
-            <div class="content">
-                <div class="left">
-                    <div class="img-wrapper"><a href="AllNewGai.html"><img src="images/zhuanti1.png"></a></div>
-                    <ul class="zhuanti1-list" id="qcg-index" style="position: relative;">
-
-                        <li><a href="qcgxq.html?id=ff8080815df32d1a015e07d60848010f" target="_blank"><span>●</span>
-                            嘉兴市召开省全面创新改革试验区建设工作推进会</a></li>
-                        <li><a href="qcgxq.html?id=ff8080815df32d1a015e07d1827c010c" target="_blank"><span>●</span>
-                            自贡市突出重点推进全面创新改革试验</a></li>
-                        <li><a href="qcgxq.html?id=ff8080815df32d1a015e07da7bcc011b" target="_blank"><span>●</span>
-                            坚持创新改革试验 中国(绵阳)科技城建设成效明显</a></li>
-                    </ul>
-                </div>
-                <div class="right">
-                    <div class="img-wrapper"><a href="ZhanXin.html"><img src="images/zhuanti2.png"></a></div>
-                    <ul class="zhuanti1-list" id="zxx-index">
-
-                        <li><a href="zxxxq.html?id=ff8080815df32d1a015e183aaace0434" target="_blank"><span>●</span>
-                            坚决打赢钢铁去产能攻坚战</a></li>
-                        <li><a href="zxxxq.html?id=ff8080815df32d1a015e0e53e4da02d3" target="_blank"><span>●</span>
-                            河北省副省长对省通信管理局工作作出重要批示</a></li>
-                        <li><a href="zxxxq.html?id=ff8080815df32d1a015e1832c0610412" target="_blank"><span>●</span>
-                            青海通信管理局组织召开2017年电信基础设施共建共享工作会议</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- 双创专题结束 -->
-        <div class="zc-fx-container">
-            <!-- 最新政策开始 -->
-            <div class="zc-container">
-                <div class="index-public-title">
-                    <a href="zhengceku.html">最新政策</a>
-                </div>
-                <div class="title">
-                    <div class="tab-btn-wrapper">
-                        <div class="tab-btn active" id="xinzheng-buwei">部委
-                        </div>
-                        <div class="tab-btn" id="xinzheng-difang">地方</div>
-                    </div>
-                    <a href="javascript:;" class="more-link" id="zxzc-more-link">更多
-                        <div class="img-wrapper"><img src="images/more_icon.png"></div>
-                    </a>
-                </div>
-                <ul class="xinzheng-list" id="xinzheng-list">
-
-                    <li><a href="zhengcekuDetail.html?id=ff80808162f618470162f6dd59300359" target="_blank">
-                        <div class="right"><p class="p1">科技部关于举办第七届中国创新创业大赛的通知</p>
-                            <p class="p2">科技部关于举办第七届中国创新创业大赛的通知国科发火〔2018〕76号&nbsp;各省、自治区、直辖市及计划单列市科技厅（委、局），新疆生产建设兵团科技局，各国家...</p>
-                            <p class="p3"><label class="label1">发布单位：科技部</label><label class="label2">2018-04-24</label>
-                            </p></div>
-                    </a></li>
-                    <li><a href="zhengcekuDetail.html?id=ff80808162ed42fb0162f19f3841029f" target="_blank">
-                        <div class="right"><p class="p1">人力资源社会保障部办公厅 财政部办公厅关于做好2018年高校毕业生“三支一扶”计划实施工作的通知</p>
-                            <p class="p2">人力资源社会保障部办公厅 财政部办公厅关于做好2018年高校毕业生“三支一扶”计划实施工作的通知&nbsp;各省、自治区、直辖市及新疆生产建设兵团人力资源社会保...</p>
-                            <p class="p3"><label class="label1">发布单位：财政部办公厅,人力资源社会保障部</label><label class="label2">2018-04-23</label>
-                            </p></div>
-                    </a></li>
-                </ul>
-            </div>
-            <!-- 最新政策结束 -->
-            <!-- 政策分析开始 -->
-            <div class="fx-container">
-                <div class="index-public-title">
-                    <a href="analyzeMap.html">政策分析</a>
-                </div>
-                <div class="title-wrapper">
-                    <div class="title">月度政策热点</div>
-                </div>
-                <ul class="zhengce-hot-list" id="zhengce-hot-list">
-
-                    <li><a href="zhengcekuDetail.html?id=ff808081617a5a870162d20162011a5a" target="_blank">
-                        <div class="img-wrapper"><img src="images/hot1.png"></div>
-                        <p class="content">关于促进首台（套）重大技术装备示范应用的意见</p></a></li>
-                    <li><a href="zhengcekuDetail.html?id=ff8080815ea917d3015f75b18f614b8c" target="_blank">
-                        <div class="img-wrapper"><img src="images/hot2.png"></div>
-                        <p class="content">辽宁省人民政府关于鼓励社会力量兴办教育促进民办教育健康发展的实施意见</p></a></li>
-                    <li><a href="zhengcekuDetail.html?id=ff80808162ed42fb0162f19f3841029f" target="_blank">
-                        <div class="img-wrapper"><img src="images/hot3.png"></div>
-                        <p class="content">人力资源社会保障部办公厅 财政部办公厅关于做好2018年高校毕业生“三支一扶”计划实施工作的通知</p></a></li>
-                    <li><a href="zhengcekuDetail.html?id=ff808081617a5a870162cc8ebd6119c6" target="_blank">
-                        <div class="img-text-wrapper">4</div>
-                        <p class="content">安阳市人民政府关于做好当前和今后一段时期就业创业工作的实施意见</p></a></li>
-                    <li><a href="zhengcekuDetail.html?id=ff808081617a5a870162dbc471f41b7b" target="_blank">
-                        <div class="img-text-wrapper">5</div>
-                        <p class="content">
-                            中共银川市委办公厅银川市人民政府办公厅关于印发《银川市关于激发人才活力服务创新驱动发展的若干意见》《银川市高精尖缺人才优厚待遇实施办法》《银川市创新型大学生宜居工程实施办法》的通知</p>
-                    </a></li>
-                </ul>
-            </div>
-            <!-- 政策分析结束 -->
-        </div>
-        <!-- 双创活动开始 -->
-        <div class="schd-container">
-            <div class="index-public-title">
-                <a href="activeAfter.html">活动跟踪</a>
-            </div>
-            <div class="title">
-                <div class="tab-btn-wrapper" id="schd-tab">
-                    <div class="tab-btn active" id="schd-scz">双创周
-                    </div>
-                    <div class="tab-btn" id="schd-cxzg">创响中国</div>
-                    <!-- <div class="tab-btn">创客中国</div><div class="tab-btn">创新创业大赛</div> -->
-                </div>
-            </div>
-            <!-- <ul class="schd-tab-btn-list">
-                <li class="active">双创周</li>
-                <li>创响中国</li>
-                <li>创客中国</li>
-                <li>创新创业大赛</li>
-            </ul> -->
-            <div class="schd-tab-content-list">
-                <div>
-                    <ul id="schd-list">
-
-                        <li><a href="javascript:;"></a>
-                            <div class="img-wrapper"><a href="javascript:;"></a><a
-                                    href="articleHD.html?id=ff8080815ea917d3015ed1b499a62539" class="detail"
-                                    target="_blank"><img
-                                    src="http://sccs.youedata.com/icnppServer/ueditor/20171204/1512399248366035007.jpg"></a>
-                            </div>
-                            <a href="articleHD.html?id=ff8080815ea917d3015ed1b499a62539" class="detail" target="_blank">
-                                <p class="content">【湖北分会场】双创周湖北分会场开幕 武汉117个创业项目全是...</p></a></li>
-                        <li><a href="javascript:;"></a>
-                            <div class="img-wrapper"><a href="javascript:;"></a><a
-                                    href="articleHD.html?id=ff8080815ea917d3015ed1b264252529" class="detail"
-                                    target="_blank"><img
-                                    src="http://sccs.youedata.com/icnppServer/ueditor/20180420/1524156321028066671.jpg"></a>
-                            </div>
-                            <a href="articleHD.html?id=ff8080815ea917d3015ed1b264252529" class="detail" target="_blank">
-                                <p class="content">【海南分会场】全国大众创业万众创新活动周海南分会场开幕</p></a></li>
-                        <li><a href="javascript:;"></a>
-                            <div class="img-wrapper"><a href="javascript:;"></a><a
-                                    href="articleHD.html?id=ff8080815ea917d3015ed1b55836253f" class="detail"
-                                    target="_blank"><img
-                                    src="http://sccs.youedata.com/icnppServer/ueditor/20180420/1524156237312029611.jpg"></a>
-                            </div>
-                            <a href="articleHD.html?id=ff8080815ea917d3015ed1b55836253f" class="detail" target="_blank">
-                                <p class="content">【湖南分会场】2017全国“双创周”湖南分会场启动</p></a></li>
-                        <li><a href="javascript:;"></a>
-                            <div class="img-wrapper"><a href="javascript:;"></a><a
-                                    href="articleHD.html?id=ff8080815ea917d3015ed1af4f332513" class="detail"
-                                    target="_blank"><img
-                                    src="http://sccs.youedata.com/icnppServer/ueditor/20180420/1524155979919099200.jpg"></a>
-                            </div>
-                            <a href="articleHD.html?id=ff8080815ea917d3015ed1af4f332513" class="detail" target="_blank">
-                                <p class="content">【贵州分会场】2017年全国“双创”活动周贵州分会场活动启动</p></a></li>
-                        <li><a href="javascript:;"></a>
-                            <div class="img-wrapper"><a href="javascript:;"></a><a
-                                    href="articleHD.html?id=ff8080815ea917d3015ed1b3a5d42531" class="detail"
-                                    target="_blank"><img
-                                    src="http://sccs.youedata.com/icnppServer/ueditor/20180420/1524156080450040788.jpg"></a>
-                            </div>
-                            <a href="articleHD.html?id=ff8080815ea917d3015ed1b3a5d42531" class="detail" target="_blank">
-                                <p class="content">【河南分会场】2017年全国双创活动周河南分会场正式启动</p></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- 双创活动结束 -->
-        <!-- 双创服务开始 -->
-        <div class="scfw-container">
-            <div class="index-public-title">
-                <a href="serviceOver.html">服务拓展</a>
-            </div>
-            <div class="title">
-                <div class="tab-btn-wrapper" id="fuwu-tab">
-                    <div class="tab-btn active">创业者
-                    </div>
-                    <div class="tab-btn">孵化器及众创空间</div>
-                </div>
-            </div>
-            <div class="fuwu-content" id="fuwu-content">
-                <div class="active">
-                    <ul class="fuwu-list">
-                        <li>
-                            <a href="yhzccx.html">
-                                <div class="img-wrapper"><img src="images/temp/shuishou.png"></div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="zhengceku.html">
-                                <div class="img-wrapper"><img src="images/temp/xwqy.png"></div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="serviceExp.html">
-                                <div class="img-wrapper"><img src="images/temp/jijin.png"></div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <ul class="fuwu-list">
-                        <li>
-                            <a href="serviceAppr.html">
-                                <div class="img-wrapper"><img src="images/temp/fuhuaqi.png"></div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- 双创服务结束 -->
-    </div>
-
-</div>
-<!-- 返回顶部按钮 -->
-<a class="TopBack" href="#"><span>Top</span></a>
-<script type="text/javascript" src="js/headerFooter.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
+{# 继承后，要在body中加载新的内容需要这样定义 #}
+{% block body %}{% endblock %}
 
 
-<div class="footAbout">
-    <div><img src="images/party.png">
-        <ul>
-            <li><a href="aboutWebsite.html">关于本站</a></li>
-            <li><a href="websiteState.html">网站声明</a></li>
-            <li><a href="zddt.html">网站地图</a></li>
-            <li><a href="aboutUs.html">联系我们</a></li>
-        </ul>
-        <b style="font-weight:normal;">版权所有：国家信息中心</b>
-        <p style="left:241px;"><a href="http://www.youedata.cn/" style="color:#fff;">技术支持：国信优易数据有限公司</a></p></div>
-</div>
 </body>
+{# 返回顶部按钮 #}
+{% block js%} 
+<a class="TopBack" href="#"><span>Top</span></a>
+<script type="text/javascript" src="{{ url_for('static',filename="js/headerFooter.js") }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename="js/common.js") }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename="js/index.js") }}"></script>
+{% endblock %}
+</div>
 </html>
