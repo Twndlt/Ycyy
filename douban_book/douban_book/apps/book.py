@@ -23,3 +23,10 @@ def index():
     if form.validate_on_submit():
         pass
     return render_template('login.html', form=form)
+
+@book.route('shuangchuang/', methods=["GET","POST"])
+def SC():
+    """
+    双创
+    """
+    return render_template('index.html')
