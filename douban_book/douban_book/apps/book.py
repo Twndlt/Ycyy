@@ -15,6 +15,8 @@ book = Blueprint('book', __name__, url_prefix='/')
 def index():
     """
     登录
+    author：吴有为
+    time：2018-4-26
     :return:
     """
     form = Book_Login()

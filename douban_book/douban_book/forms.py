@@ -9,6 +9,8 @@ from sqlalchemy.ext.declarative import declarative_base
 class Book_Login(FlaskForm):
     """
     用户登录
+    author：吴有为
+    time：2018-4-26
     """
     username = StringField(
         label=u"用户名",
@@ -28,44 +30,3 @@ class Book_Login(FlaskForm):
         label='记住我'
     )
     submit = SubmitField('登录')
-
-# # 创建对象的基类:
-# Base = declarative_base()
-# # 定义User对象:
-# class User(Base):
-#     # 表的名字:
-#     __tablename__ = 'demo'
-#
-#     # 表的结构:
-#     id = Column(String(20), primary_key=True)
-#     name = Column(String(20))
-#     password = Column(String(20))
-#
-#     def validate(self,name,password):
-#         """
-#         验证账户密码
-#         :param name:
-#         :param password:
-#         :return:
-#         """
-#         # 初始化数据库连接:
-#         engine = create_engine("mysql+pymysql://root:root@127.0.0.1:3306/industrydatas_ccc?charset=utf8mb4")
-#         # 创建DBSession类型:
-#         DBSession = sessionmaker(bind=engine)
-#         session = DBSession()
-#         zt1=1
-#         zt2=1
-#         # 创建Query查询，filter是where条件，最后调用one()返回唯一行，如果调用all()则返回所有行:
-#         try:
-#             name = session.query(User).filter(User.name==name).one()
-#             zt1=0
-#         except:
-#             zt1 =1
-#         try:
-#             password = session.query(User).filter(User.password==password).one()
-#             if password==password:
-#                 zt2 = 0
-#         except:
-#             zt2 =1
-#         if zt1 and zt2:
-#             raise ValidationError('用户名或密码错误')
