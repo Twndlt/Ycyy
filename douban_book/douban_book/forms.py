@@ -1,10 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField,BooleanField,SubmitField,ValidationError
 from wtforms.validators import (DataRequired,length)
-# from douban_book.models import User
-from sqlalchemy import Column, String, create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+
 
 class Book_Login(FlaskForm):
     """
