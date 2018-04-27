@@ -1,0 +1,70 @@
+{# 继承模板，禁止更改！#}
+{# 继承模板，禁止更改！#}
+{# 继承模板，禁止更改！#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    {% block css %}
+        <link rel="stylesheet" href="{{ url_for('static',filename="css/base.css") }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename="css/yzhStyle.css") }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename="css/common.css") }} ">
+        <script type="text/javascript" src="{{ url_for('static',filename="js/jquery-1.8.3.min.js") }}"></script>
+        <script type="text/javascript" src="{{ url_for('static',filename="js/imgHandle.js") }}"></script>
+    {% endblock %}
+</head>
+<body>
+
+{# 轮播图开始 #}
+<div class="slider-container">
+    <ul class="slider-body" id="index-slider-body" style="left: -1200px;">
+
+        <li><a href="dtxq.html?id=ff80808162e79e010162eb7cbe1300e1" target="_blank"><img
+                src="http://sccs.youedata.com/SCData/DynamicCoverImg/imgFolder/2d81ddce-0c99-4c37-8ce3-a807be94bf29.jpg"
+                class="lunbotu"></a></li>
+        <li><a href="dtxq.html?id=ff80808162d65ca10162dbd26dfa024c" target="_blank"><img
+                src="http://sccs.youedata.com/SCData/DynamicCoverImg/imgFolder/edab2407-4185-47c5-a889-54b64fb477f7.jpg"
+                class="lunbotu"></a></li>
+        <li><a href="dtxq.html?id=ff80808162ec5fa20162ec7e209a0025" target="_blank"><img
+                src="http://sccs.youedata.com/SCData/DynamicCoverImg/imgFolder/52f1c56e-0f3d-47f5-b421-f6b7bd67b88d.jpg"
+                class="lunbotu"></a></li>
+        <li><a href="dtxq.html?id=ff80808162ec5fa20162ec7531320019" target="_blank"><img
+                src="http://sccs.youedata.com/SCData/DynamicCoverImg/imgFolder/933ac6c7-86cb-4515-a6e2-72c80c46b58c.jpg"
+                class="lunbotu"></a></li>
+        <li><a href="dtxq.html?id=ff80808162e79e010162eb7cbe1300e1" target="_blank"><img
+                src="http://sccs.youedata.com/SCData/DynamicCoverImg/imgFolder/2d81ddce-0c99-4c37-8ce3-a807be94bf29.jpg"
+                class="lunbotu"></a></li>
+    </ul>
+    <div class="up_focus" id="index-focus"><span class=""></span><span class="on"></span><span class=""></span><span
+            class=""></span></div>
+    <div class="prev" id="index-prev"><img src="{{ url_for('static',filename="images/i_prev.png") }}"></div>
+    <div class="next" id="index-next"><img src="{{ url_for('static',filename="images/i_next.png") }}"></div>
+    <div class="bottom-bg" id="index-title-ul">
+
+        <li class=""><a href="dtxq.html?id=ff80808162e79e010162eb7cbe1300e1" target="_blank">2018年“创响中国”活动在杨浦启动
+            中外“大咖”对话创意创新 </a></li>
+        <li class="active"><a href="dtxq.html?id=ff80808162d65ca10162dbd26dfa024c" target="_blank">李克强和新加坡总理李显龙向“中国－东盟创新年”启动仪式致贺信</a>
+        </li>
+        <li class=""><a href="dtxq.html?id=ff80808162ec5fa20162ec7e209a0025" target="_blank">习近平出席庆祝海南建省办经济特区30周年大会并发表重要讲话</a>
+        </li>
+        <li class=""><a href="dtxq.html?id=ff80808162ec5fa20162ec7531320019" target="_blank">税务总局介绍一季度税务部门组织税收收入、落实税收优惠等情况</a>
+        </li>
+    </div>
+</div>
+{#  轮播图结束 #}
+
+{# 继承后，要在body中加载新的内容需要这样定义 #}
+{% block body %}{% endblock %}
+
+
+</body>
+{# 返回顶部按钮 #}
+{% block js%} 
+<a class="TopBack" href="#"><span>Top</span></a>
+<script type="text/javascript" src="{{ url_for('static',filename="js/headerFooter.js") }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename="js/common.js") }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename="js/index.js") }}"></script>
+{% endblock %}
+</div>
+</html>
