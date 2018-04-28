@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
@@ -16,5 +18,48 @@ class User(Base):
     """
     用户表
     """
-    __tablename__ = 'user'
-    pass
+
+    ROLE_USER = 10
+    ROLE_COMPANY = 20
+    ROLE_ADMIN = 30
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(40), unique=True)
+    email = db.Column(db.String(40), unique=True)
+    phone = db.Column(db.Integer)
+    resume_url = db.String(db.String(255))
+    _password = db.Column('password', db.String(256), nullable=False)
+    role = db.Column(db.SmallInteger, default=ROLE_USER)
+
+    def __repr__(self):
+        return '<Admin:{}>'.format(self.username)
+
+    @property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def password(self, orig_password):
+        self._password = generate_password_hash(orig_password)
+
+    def check_password(self, password):
+        return check_password_hash(self._password, password)
+
+    @property
+    def is_admin(self):
+        return self.role == self.ROLE_ADMIN
+
+    @property
+    def is_company(self):
+        return self.role == self.ROLE_COMPANY
+
+    @property
+    def is_active(self):
+        if self.active == 0:
+            return "禁用"
+        else:
+            return "启用"
+
+    @classmethod
+    def get_alluser(self):
+        return User.query.filter_by(deleted=0).all()
