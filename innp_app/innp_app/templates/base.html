@@ -1,6 +1,3 @@
-{# 继承模板，禁止更改！#}
-{# 继承模板，禁止更改！#}
-{# 继承模板，禁止更改！#}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,17 +51,15 @@
 </div>
 {#  轮播图结束 #}
 
-{# 继承后，要在body中加载新的内容需要这样定义 #}
+
 {% block body %}{% endblock %}
 
 
 </body>
 {# 返回顶部按钮 #}
-{% block js%} 
 <a class="TopBack" href="#"><span>Top</span></a>
 <script type="text/javascript" src="{{ url_for('static',filename="js/headerFooter.js") }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename="js/common.js") }}"></script>
 <script type="text/javascript" src="{{ url_for('static',filename="js/index.js") }}"></script>
-{% endblock %}
 </div>
 </html>
