@@ -24,12 +24,10 @@ def index():
     time：2018-4-26
     :return:
     """
-<<<<<<< HEAD
     if q is not None:
         result = DoubanBook.search_by_keywords(q)
         books = BookViewModel.package_data(result, q)
         return render_template("index.html", data=books.get('books'))
-=======
     form = Book_Login()
     if form.validate_on_submit():
         pass
@@ -41,4 +39,3 @@ def SC():
     双创
     """
     return render_template('index.html')
->>>>>>> a7e9100b64cd66bdec092f233369aadbf3bec954
