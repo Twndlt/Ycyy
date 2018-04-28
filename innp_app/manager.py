@@ -1,6 +1,6 @@
-from innp_app.innp_app.app import create_apps
+from innp_app.app import create_app
 
-app = create_apps()
+app = create_app('developments')
 
 if __name__ == '__main__':
     app.run(debug=True)
