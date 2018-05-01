@@ -18,7 +18,7 @@ class User(Base):
     """
     用户表
     """
-
+    __tablename__ = "user"
     ROLE_USER = 10
     ROLE_COMPANY = 20
     ROLE_ADMIN = 30
