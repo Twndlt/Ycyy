@@ -5,9 +5,9 @@ import os
 from flask import (Flask,request....)
 """
 from flask import (Blueprint, render_template, json, request,flash,redirect,url_for)
-from ..forms import  RegisterForm
-from ..models import User
-from ..app import db
+from innp_app.forms import  (RegisterForm,LoginForm)
+from innp_app.models import User
+from innp_app import db
 
 home = Blueprint('home',__name__,url_prefix="/home")
 
@@ -19,12 +19,28 @@ def index():
     return render_template("index.html")
 
 
-@home.route("/login",methods=["POST"])
+@home.route("/login",methods=["POST","GET"])
 def login():
+    form = LoginForm()
     """
     登录功能
     """
-    pass
+    if form.validate_on_submit():  ###表格中填入了数据，执行下面操作
+        print("111"+form.username.data)
+        print("222"+form.password.data)
+        user = None
+        try:
+            user = User.query.filter_by(username=form.username.data).first()
+            print(user.password)
+            print(user.username)
+        except Exception as e:
+            user = None
+            print("出错了，原因是%s"%e)
+        print(user)
+
+        if user is not None and user.password == form.password.data:
+            return render_template("index.html")
+    return render_template("login.html",form=form)
 
 
 @home.route("/register",methods=["POST"])
