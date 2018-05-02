@@ -19,24 +19,11 @@ def index():
     return render_template("index.html")
 
 
-@home.route("/login", methods=["POST", "GET"])
-def login():
-    """
-    登录功能
-    """
-
-
-@home.route("/register", methods=["POST"])
-def register():
-    """
-    注册功能
-    """
-
-
 @home.route("/miniac", methods=["GET"])
 def miniac():
     """
     部委
+    @author 源哥
     :return:
     """
     pass
@@ -46,6 +33,7 @@ def miniac():
 def hot():
     """
     热门
+    @author hadoop
     :return:
     """
     pass
@@ -55,6 +43,7 @@ def hot():
 def city():
     """
     地方
+    @author hadoop
     :return:
     """
     pass
@@ -64,6 +53,7 @@ def city():
 def team():
     """
     社会团体
+    @author hadoop
     :return:
     """
     pass
@@ -73,6 +63,7 @@ def team():
 def base():
     """
     基地
+    @author hadoop
     :return:
     """
     pass
@@ -82,6 +73,7 @@ def base():
 def column():
     """
     专题专栏
+    @author little、seven
     :return:
     """
     pass
@@ -91,6 +83,7 @@ def column():
 def news():
     """
     最新政策
+    @author lyfy
     :return:
     """
     pass
@@ -100,6 +93,7 @@ def news():
 def pas():
     """
     政策分析
+    @author lyfy
     :return:
     """
     pass
@@ -109,6 +103,7 @@ def pas():
 def active():
     """
     政策追踪
+    @author lyfy
     :return:
     """
     pass
@@ -118,6 +113,7 @@ def active():
 def service():
     """
     服务拓展
+    @author lyfy
     :return:
     """
     pass
