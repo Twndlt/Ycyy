@@ -4,20 +4,9 @@
 ## Contributors
 
 * [se7en](https://github.com/litt1eseven/Ycyy)
-* [唐诚](https://github.com/woxingyiyi/Ycyy)
-* [徐家琪](https://github.com/xujiaqi/Ycyy)
-* [王鹏程](https://github.com/Twndlt/Ycyy.git)
-* [段斌](https://github.com/djyldddb1717/Ycyy)
-* [辅小红](https://github.com/fxiaohong/Ycyy)
-* [崔燕南](https://github.com/c502556190/Ycyy)
-* [许明伟](https://github.com/CherishMIWD/Ycyy)
-* [郭扛扛](https://github.com/631540886/Ycyy)
 * [陈海源](https://github.com/chenhaiyuan53880/Ycyy)
-* [李晶](https://github.com/irisvv/Ycyy)
 * [吴有为](https://github.com/1191464964/Ycyy)
-* [周祝森](https://github.com/GitHubMrZhou/Ycyy)
-* [杨举成](https://github.com/tyhg001/Ycyy)
-* [赵鹏飞](https://github.com/zpfzpf1/Ycyy)
+* [袁蒙恩](https://test.com)
 
 ## deploy（后期加）
 **Docker部署**

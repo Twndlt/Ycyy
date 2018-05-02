@@ -14,6 +14,7 @@ class Base(db.Model):
     active = db.Column(db.Integer, default=0)  # 禁用/启用:0表示显示，1表示删除
 
 
+
 class User(Base):
     """
     用户表
@@ -30,6 +31,7 @@ class User(Base):
     resume_url = db.String(db.String(255))
     _password = db.Column('password', db.String(256), nullable=False)
     role = db.Column(db.SmallInteger, default=ROLE_USER)
+    miniac = db.relationship('Miniac', uselist=False)  # 主键
 
     def __repr__(self):
         return '<Admin:{}>'.format(self.username)
@@ -63,3 +65,19 @@ class User(Base):
     @classmethod
     def get_alluser(self):
         return User.query.filter_by(deleted=0).all()
+
+
+class Miniac(Base):
+    """
+    部委
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    content = db.Column(db.Text, unique=True)
+    source = db.Column(db.String(255), unique=True)  # 来源
+    images = db.Column(db.String(50), unique=True)
+    dec = db.Column(db.String(100), unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+
+    def __repr__(self):
+        return '<Miniac:{}>'.format(self.id)
