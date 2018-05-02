@@ -21,6 +21,8 @@ class DevelopmentsConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymyaql://test:test@192.168.10.114:3306/inapp_app?charset=utf8'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
+    SWAGGER_UI_JSONEDITOR = True
+
 
 class TestingConfig:
     pass
