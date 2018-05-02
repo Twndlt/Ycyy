@@ -32,7 +32,7 @@ class Miniac(Resource):
         @author 源哥
         :return:
         """
-        miniac = Miniac.query.all()
+        miniac = [{"username": "aaaa"}]  # 这里应该取数据库的数据
         return IndexSchema().dump(miniac, many=True).data
 
     def post(self):
