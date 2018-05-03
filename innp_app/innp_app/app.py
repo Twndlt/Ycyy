@@ -7,7 +7,7 @@ from .models import db
 
 def register_extensions(app):
     db.init_app(app)
-    Migrate(db, app)
+    Migrate(app, db)
 
 
 def register_blueprints(app):
@@ -20,4 +20,5 @@ def create_app(config):
     app.config.from_object(configs.get(config))
     register_blueprints(app)  # 注册路由
     register_extensions(app)  # 数据库热迁移
+
     return app

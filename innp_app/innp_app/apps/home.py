@@ -25,14 +25,15 @@ class Index(Resource):
 
 
 @api.route("/miniac")
-class Miniac(Resource):
+class MiniacIndex(Resource):
     def get(self):
         """
         部委数据列表
         @author 源哥
         :return:
         """
-        miniac = [{"username": "aaaa"}]  # 这里应该取数据库的数据
+        miniac = Miniac.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
+        print(miniac)
         return IndexSchema().dump(miniac, many=True).data
 
     def post(self):
