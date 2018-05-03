@@ -10,7 +10,7 @@ from marshmallow import (Schema, fields, validate, post_load,
 
 class IndexSchema(Schema):
     id = fields.Integer(dump_only=True)
-    username = fields.String(validate=validate.Length(6, 12), required=True)
-    password = fields.String(validate=validate.Length(6, 12), required=True)
-    update_by = fields.DateTime(dump_only=True)
-    create_by = fields.DateTime(dump_only=True)
+    title = fields.String(validate=validate.Length(6, 12), required=True)
+    content = fields.String(validate=validate.Length(6, 12), required=True)
+    updated_at = fields.DateTime(dump_only=True)
+    created_at = fields.DateTime(dump_only=True)

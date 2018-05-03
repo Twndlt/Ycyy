@@ -4,8 +4,8 @@
 import os
 from flask import (Flask,request....)
 """
-from flask import (Blueprint, request, jsonify)
-from flask_restplus import Api, Resource, marshal
+from flask import (Blueprint, request)
+from flask_restplus import Api, Resource, fields
 
 from innp_app.models import (Miniac)
 from innp_app.serializers import (IndexSchema)
@@ -25,26 +25,28 @@ class Index(Resource):
 
 
 @api.route("/miniac")
-class MiniacIndex(Resource):
+class MiniacIndexView(Resource):
+
     def get(self):
         """
         部委数据列表
         @author 源哥
         :return:
         """
-        miniac = Miniac.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
-        print(miniac)
+        # page = request.args.get('id')
+        miniac = Miniac.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
         return IndexSchema().dump(miniac, many=True).data
 
+    @api.expect(api.model(
+        'miniac', {'title': fields.String('标题'), 'content': fields.String('内容')}
+    ))
     def post(self):
         """
         新增部委数据
         :return:
         """
-        data = request.form
-        username = data["username"]
-        password = data["password"]
-        return {"user_data": {"username": username, "password": password}}
+        sechema = IndexSchema(many=True)
+        return {"user_data": "rest"}
 
 
 @api.route('/hot')

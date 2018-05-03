@@ -31,3 +31,4 @@ class RegisterForm(FlaskForm):
     """
     注册表单
     """
+    pass
