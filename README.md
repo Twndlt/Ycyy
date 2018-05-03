@@ -6,7 +6,7 @@
 * [se7en](https://github.com/litt1eseven/Ycyy)
 * [陈海源](https://github.com/chenhaiyuan53880/Ycyy)
 * [吴有为](https://github.com/1191464964/Ycyy)
-* [袁蒙恩](https://test.com)
+* [袁蒙恩](https://github.com/mengshensan/Ycyy)
 
 ## API 列表
 http://127.0.0.1:5000/api/docs#/
