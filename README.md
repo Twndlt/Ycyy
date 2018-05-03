@@ -8,6 +8,11 @@
 * [吴有为](https://github.com/1191464964/Ycyy)
 * [袁蒙恩](https://test.com)
 
+## API 列表
+http://127.0.0.1:5000/api/docs#/
+
+![swagger](https://github.com/litt1eseven/python-project/blob/master/Company%20project/images/swagger.png)
+
 ## deploy（后期加）
 **Docker部署**
 
