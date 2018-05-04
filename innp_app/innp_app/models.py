@@ -5,7 +5,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
-
 class Base(db.Model):
     __abstract__ = True
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -80,3 +79,112 @@ class Miniac(Base):
 
     def __repr__(self):
         return '<Miniac:{}>'.format(self.title)
+
+
+class Pas(Base):
+    """
+    政策分析
+    @author lyfy
+    :return:[<Pas:XXX>]
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    source = db.Column(db.String(50), unique=True)  # 来源
+    images = db.Column(db.String(50), unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+
+    def __repr__(self):
+        return '<Pas:{}>'.format(self.title)
+
+
+class Active(Base):
+    """
+    政策追踪
+    @author lyfy
+    :return:[<Active:xxx>]
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    source = db.Column(db.String(50), unique=True)  # 来源
+    images = db.Column(db.String(50), unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+
+    def __repr__(self):
+        return '<Active:{}>'.format(self.title)
+
+
+class Service(Base):
+    """
+    服务拓展
+    @author lyfy
+    :return:[<Service:xxx>]
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    source = db.Column(db.String(50), unique=True)  # 来源
+    images = db.Column(db.String(50), unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+
+    def __repr__(self):
+        return '<Service:{}>'.format(self.title)
+
+
+class City(Base):
+    """"
+    地方列表
+    @author hadoop
+    :return:[<city:xxx>]
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    source = db.Column(db.String(50), unique=True)  # 来源
+    images = db.Column(db.String(50), unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+
+    def __repr__(self):
+        return '<City:{}>'.format(self.title)
+
+
+class Hot(Base):
+    """"
+    热门列表
+    @author hadoop
+    :return:[<Hot:xxx>]
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    source = db.Column(db.String(50), unique=True)  # 来源
+    images = db.Column(db.String(50), unique=True)
+
+    def __repr__(self):
+        return '<Hot:{}>'.format(self.title)
+
+
+class Team(Base):
+    """"
+    社会团体
+    @author hadoop
+    :return:[<Team:xxx>]
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    source = db.Column(db.String(50), unique=True)  # 来源
+    images = db.Column(db.String(50), unique=True)
+
+    def __repr__(self):
+        return '<Team:{}>'.format(self.title)
+
+
+class BaseCity(Base):
+    """"
+    基地
+    @author hadoop
+    :return:[<BaseCity:xxx>]
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    source = db.Column(db.String(50), unique=True)  # 来源
+    images = db.Column(db.String(50), unique=True)
+
+    def __repr__(self):
+        return '<BaseCity:{}>'.format(self.title)

@@ -6,13 +6,11 @@ from flask import (Flask,request....)
 """
 from flask import (Blueprint, request)
 from flask_restplus import Api, Resource, fields
-
-from innp_app.models import (Miniac)
-from innp_app.serializers import (IndexSchema)
+from innp_app.models import (Miniac,Pas,Active,Service,City,Hot,Team,BaseCity)
+from innp_app.serializers import (IndexSchema,Indexpas,Indexactive,Indexservice,Indexcity,Indexnews,Indexhot,Indexteam,Indexbasecity)
 
 home = Blueprint('api', __name__, url_prefix='/api')
 api = Api(home, doc='/docs', title="主页的API接口", version='0.1')
-
 
 @api.route('/')
 class IndexView(Resource):
@@ -50,49 +48,53 @@ class MiniacListView(Resource):
 
 
 @api.route('/hot')
-class Hot(Resource):
+class HotIndex(Resource):
     def get(self):
         """
         热门列表
         @author hadoop
-        :return:
+        :return:{id,updated_at,title,created_at,source}
         """
-        return {"data": "hot"}
+        hot = Hot.query.filter_by(deleted=0).all()  # 这里取数据库的数据
+        return Indexhot().dump(hot, many=True).data
 
 
-@api.route('city')
-class City(Resource):
+@api.route('/city')
+class CityIndex(Resource):
 
-    def city(self):
+    def get(self):
         """
         地方列表
         @author hadoop
-        :return:
+        :return:{id,updated_at,title,created_at,source}
         """
-        return "1"
+        city = City.query.filter_by(deleted=0).all()
+        return Indexcity().dump(city, many=True).data
 
 
 @api.route('/team')
-class Team(Resource):
+class TeamIndex(Resource):
 
-    def team(self):
+    def get(self):
         """
         社会团体
         @author hadoop
-        :return:
+        :return:{id,updated_at,title,created_at,source}
         """
-        pass
+        team = Team.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
+        return Indexteam().dump(team, many=True).data
 
 
 @api.route('/base')
-class BaseCity(Resource):
+class BaseCityIndex(Resource):
     def get(self):
         """
         基地
         @author hadoop
-        :return:
+        :return:{id,updated_at,title,created_at,source}
         """
-        pass
+        basecity = BaseCity.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
+        return Indexbasecity().dump(basecity, many=True).data
 
 
 @api.route('/column')
@@ -114,42 +116,48 @@ class News(Resource):
         """
         最新政策列表
         @author lyfy
-        :return:
+        :return:{id,updated_at,title,created_at,source}
         """
-        pass
+        new1 = Miniac.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
+        new2 = City.query.filter_by(deleted=0).all()
+        news = new1+new2
+        return Indexnews().dump(news, many=True).data
 
 
 @api.route('/pas')
-class Pas(Resource):
+class PasIndex(Resource):
 
     def get(self):
         """
         政策分析
         @author lyfy
-        :return:
+        :return:{updated_at,title,created_at,source}
         """
-        pass
+        pas = Pas.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
+        return Indexpas().dump(pas, many=True).data
 
 
 @api.route('/active-tracking')
-class Active(Resource):
+class ActiveIndex(Resource):
 
     def get(self):
         """
         政策追踪
         @author lyfy
-        :return:
+        :return:{id,updated_at,title,created_at,source}
         """
-        pass
+        active = Active.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
+        return Indexactive().dump(active, many=True).data
 
 
 @api.route('/service-dev')
-class Service(Resource):
+class ServiceIndex(Resource):
 
     def get(self):
         """
         服务拓展
         @author lyfy
-        :return:
+        :return:{updated_at,title,created_at,source}
         """
-        pass
+        service = Service.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
+        return Indexservice().dump(service, many=True).data
