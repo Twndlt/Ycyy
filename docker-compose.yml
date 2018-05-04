@@ -3,7 +3,7 @@ services:
     web:
       image: innp_app:latest
       volumes:
-        - ./inpp_app:/home/inpp_app:rw
+        - ./innp_app/:/home/innp_app/:rw
       command: "supervisord -c /usr/supervisord.conf -n"
       ports:
         - "8080:80"
