@@ -23,6 +23,31 @@ class DevelopmentsConfig(BaseConfig):
 
     SWAGGER_UI_JSONEDITOR = True
 
+    SWAGGER = {
+        "swagger_version": "2.0",
+        "title": "Innp项目",
+        "headers": [
+            ('Access-Control-Allow-Origin', '*'),
+            ('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, OPTIONS"),
+            ('Access-Control-Allow-Credentials', "true"),
+        ],
+        "specs": [
+            {
+                "version": "0.1",
+                "title": "主页API接口列表",
+                "description": 'This is the version 0.1 of Innp_app API',
+                "endpoint": 'apispec_1',
+                "route": '/apispec_1.json',
+                "rule_filter": lambda rule: True,  # all in
+                "model_filter": lambda tag: True,  # all in
+            }
+        ],
+        "static_url_path": "/flasgger_static",
+        # "static_folder": "static",  # must be set by user
+        "swagger_ui": True,
+        "specs_route": "/apidocs/"
+    }
+
 
 class TestingConfig:
     pass

@@ -1,1 +1,1 @@
-from .home import home
+from .urls import index

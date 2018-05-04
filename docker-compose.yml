@@ -1,0 +1,9 @@
+version: '2'
+services:
+    web:
+      image: innp_app:latest
+      command: "supervisord -c /usr/supervisord.conf -n"
+      ports:
+        - "8080:80"
+      # volumes:
+      # - ./jobplus:/home/job/jobplus:rw
