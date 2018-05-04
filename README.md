@@ -9,9 +9,9 @@
 * [袁蒙恩](https://github.com/mengshensan/Ycyy)
 
 ## API 列表
-http://127.0.0.1:5000/api/docs#/
+http://127.0.0.1:5000/apidocs/
 
-![swagger](https://github.com/litt1eseven/python-project/blob/master/Company%20project/images/swagger.png)
+![swagger](https://github.com/litt1eseven/python-project/blob/master/Company%20project/images/api-swagger-list.png)
 
 ## deploy（后期加）
 **Docker部署**
