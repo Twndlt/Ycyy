@@ -15,7 +15,7 @@ api = Api(home, doc='/docs', title="主页的API接口", version='0.1')
 
 
 @api.route('/')
-class Index(Resource):
+class IndexView(Resource):
 
     def get(self):
         """
@@ -25,7 +25,7 @@ class Index(Resource):
 
 
 @api.route("/miniac")
-class MiniacIndexView(Resource):
+class MiniacListView(Resource):
 
     def get(self):
         """
