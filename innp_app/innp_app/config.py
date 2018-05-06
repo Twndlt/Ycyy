@@ -30,7 +30,7 @@ class DevelopmentsConfig(BaseConfig):
             ('Access-Control-Allow-Origin', '*'),
             ('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, OPTIONS"),
             ('Access-Control-Allow-Credentials', "true"),
-            ('Content-Type', 'Application/json')
+            #('Content-Type', 'Application/json')
         ],
         "specs": [
             {

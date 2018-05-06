@@ -6,11 +6,10 @@ from flask import (Flask,request....)
 """
 from flask import jsonify
 from flask_restplus import Resource
-from innp_app.models import (Miniac, Pas, Active,
-                             Service, City, Hot, Team, BaseCity)
-from innp_app.serializers import (IndexSchema, Indexpas, Indexactive,
-                                  Indexservice, Indexcity, Indexnews, Indexhot,
-                                  Indexteam, Indexbasecity)
+from innp_app.models import (Cmember, Local, Sgroups,
+                             BaseCity,Panalysis, Atracking, Scolumn)
+from innp_app.serializers import (CmemberSchema, LocalSchema, SgroupsSchema,LpolicySchema,
+                                  BaseCitySchema,PanalysisSchema, AtrackingSchema, ScolumnSchema)
 
 
 class IndexView(Resource):
@@ -72,18 +71,20 @@ class IndexView(Resource):
         return jsonify({'id': 1})
 
 
-class MiniacListView(Resource):
+class CmemberListView(Resource):
 
     def get(self):
         """
         部委数据列表
+        :author lyfy
+        :return:{Id ， imagePaths，title，insertTime，pubtime，shortContent，source}
         ---
         tags:
           - 前台主页
         """
         # page = request.args.get('id')
-        miniac = Miniac.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
-        return IndexSchema().dump(miniac, many=True).data
+        cmember = Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        return CmemberSchema().dumps(cmember, many=True).data
 
     def post(self):
         """
@@ -139,113 +140,110 @@ class MiniacListView(Resource):
           204:
              description: No recommendation found
         """
-        sechema = IndexSchema(many=True)
+        sechema = CmemberSchema(many=True)
         return {"user_data": "rest"}
 
 
-class HotIndex(Resource):
-    def get(self):
-        """
-        热门列表
-        :author hadoop
-        :return:{id,updated_at,title,created_at,source}
-        """
-        hot = Hot.query.filter_by(deleted=0).all()  # 这里取数据库的数据
-        return Indexhot().dump(hot, many=True).data
-
-
-class CityIndex(Resource):
-
+class LocalListView(Resource):
     def get(self):
         """
         地方列表
-        :author hadoop
-        :return:{id,updated_at,title,created_at,source}
-        """
-        city = City.query.filter_by(deleted=0).all()
-        return Indexcity().dump(city, many=True).data
-
-
-class TeamIndex(Resource):
-
-    def get(self):
-        """
-        社会团体
-        :author hadoop
-        :return:{id,updated_at,title,created_at,source}
-        """
-        team = Team.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
-        return Indexteam().dump(team, many=True).data
-
-
-class BaseCityIndex(Resource):
-    def get(self):
-        """
-        基地
+        :author lyfy
+        :return:{Id，imagePaths，insertTime，pubtime，shortContent,source,title}
         ---
         tags:
           - 前台主页
         """
-        basecity = BaseCity.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
-        return IndexSchema().dumps(basecity, many=True).data
+        local = Local.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        return LocalSchema().dumps(local, many=True).data
 
 
-class Column(Resource):
+class SgroupsListView(Resource):
 
     def get(self):
         """
-        专题专栏
-        :author little、seven
-        :return:
+        社会团体列表
+        :author lyfy
+        :return:{Id，imagePaths，insertTime，pubtime，shortContent,source,title}
+        ---
+        tags:
+          - 前台主页
         """
-        return {"id": "1", "title": "11111222333"}
+        sgroups = Sgroups.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        return ScolumnSchema().dumps(sgroups, many=True).data
 
 
-class News(Resource):
+class BaseCityListView(Resource):
 
+    def get(self):
+        """
+        基地列表列表
+        :author lyfy
+        :return:{Id，imagePaths，insertTime，pubtime，shortContent,source,title}
+        ---
+        tags:
+          - 前台主页
+        """
+        basecity = BaseCity.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        return BaseCitySchema().dumps(basecity, many=True).data
+
+
+class LpolicyListView(Resource):
     def get(self):
         """
         最新政策列表
         :author lyfy
-        :return:{id,updated_at,title,created_at,source}
+        :return:{Id，pubTime，shortContent，source，titile}
+        ---
+        tags:
+          - 前台主页
         """
-        new1 = Miniac.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
-        new2 = City.query.filter_by(deleted=0).all()
-        news = new1 + new2
-        return Indexnews().dump(news, many=True).data
+        lpolicy1 = Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        lpolicy2 = Local.query.filter_by(deleted=0).all()
+        lpolicy = lpolicy1+lpolicy2
+        return LpolicySchema().dumps(lpolicy, many=True).data
 
 
-class PasIndex(Resource):
+class PanalysisListView(Resource):
+
+    def get(self):
+        """
+        政策分析列表
+        :author lyfy
+        :return:{businessId，title}
+        ---
+        tags:
+          - 前台主页
+        """
+        panalysis = Panalysis.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        return PanalysisSchema().dumps(panalysis, many=True).data
+
+
+class AtrackingListView(Resource):
+
+    def get(self):
+        """
+        活动跟踪列表
+        :author lyfy
+        :return:{Category，id，picPath，publishTime，source，title}
+        ---
+        tags:
+          - 前台主页
+        """
+        atracking = Atracking.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        return AtrackingSchema().dumps(atracking, many=True).data
+
+
+class ScolumnListView(Resource):
 
     def get(self):
         """
         政策分析
         :author lyfy
-        :return:{updated_at,title,created_at,source}
+        :return:{Id，title}
+        ---
+        tags:
+          - 前台主页
         """
-        pas = Pas.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
-        return Indexpas().dump(pas, many=True).data
-
-
-class ActiveIndex(Resource):
-
-    def get(self):
-        """
-        政策追踪
-        :author lyfy
-        :return:{id,updated_at,title,created_at,source}
-        """
-        active = Active.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
-        return Indexactive().dump(active, many=True).data
-
-
-class ServiceIndex(Resource):
-
-    def get(self):
-        """
-        服务拓展
-        :author lyfy
-        :return:{updated_at,title,created_at,source}
-        """
-        service = Service.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
-        return Indexservice().dump(service, many=True).data
+        scolumn = Scolumn.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        return ScolumnSchema().dumps(scolumn, many=True).data
