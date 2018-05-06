@@ -18,7 +18,7 @@ class DevelopmentsConfig(BaseConfig):
     DEBUG = True
     SECRET_KEY = '7d58afd5-5fdb-48b0-9c99-3466c2838745'
     JSON_AS_ASCII = False
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://test:test@192.168.10.114:3306/innp_app?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://jobplus:jobplus@115.159.106.15:3306/ycyy?charset=utf8'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
     SWAGGER_UI_JSONEDITOR = True
@@ -30,6 +30,7 @@ class DevelopmentsConfig(BaseConfig):
             ('Access-Control-Allow-Origin', '*'),
             ('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, OPTIONS"),
             ('Access-Control-Allow-Credentials', "true"),
+            ('Content-Type', 'Application/json')
         ],
         "specs": [
             {

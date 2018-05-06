@@ -187,7 +187,7 @@ class BaseCityIndex(Resource):
           - 前台主页
         """
         basecity = BaseCity.query.filter_by(deleted=0).all()  # 这里应该取数据库的数据
-        return Indexbasecity().dump(basecity, many=True).data
+        return IndexSchema().dumps(basecity, many=True).data
 
 
 class Column(Resource):
