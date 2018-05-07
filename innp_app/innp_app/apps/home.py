@@ -6,10 +6,10 @@ from flask import (Flask,request....)
 """
 from flask import jsonify
 from flask_restplus import Resource
-from innp_app.models import (Cmember, Local, Sgroups,
-                             BaseCity,Panalysis, Atracking, Scolumn)
-from innp_app.serializers import (CmemberSchema, LocalSchema, SgroupsSchema,LpolicySchema,
-                                  BaseCitySchema,PanalysisSchema, AtrackingSchema, ScolumnSchema)
+from innp_app.models import (Cmember, Local, SocioGroup,
+                             BaseCity,Panalysis, Atracking, Scolumn,Broadcast)
+from innp_app.serializers import (CmemberSchema, LocalSchema, SocioGroupSchema,LpolicySchema,
+                                  BaseCitySchema,PanalysisSchema, AtrackingSchema, ScolumnSchema,BroadcastSchema)
 
 
 class IndexView(Resource):
@@ -82,9 +82,12 @@ class CmemberListView(Resource):
         tags:
           - 前台主页
         """
-        # page = request.args.get('id')
-        cmember = Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
-        return CmemberSchema().dumps(cmember, many=True).data
+        data={
+            'code':200,
+            'msg':"数据已成功返回",
+            'data':Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        }
+        return CmemberSchema().dumps(data)
 
     def post(self):
         """
@@ -154,11 +157,16 @@ class LocalListView(Resource):
         tags:
           - 前台主页
         """
-        local = Local.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
-        return LocalSchema().dumps(local, many=True).data
+        data={
+            'code':200,
+            'msg':"数据已成功返回",
+            'data':Local.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
+        }
+        print(data)
+        return LocalSchema().dumps(data)
 
 
-class SgroupsListView(Resource):
+class SocioGroupListView(Resource):
 
     def get(self):
         """
@@ -169,8 +177,13 @@ class SgroupsListView(Resource):
         tags:
           - 前台主页
         """
-        sgroups = Sgroups.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
-        return ScolumnSchema().dumps(sgroups, many=True).data
+        data={
+            'code':200,
+            'msg':"数据已成功返回",
+            'data':SocioGroup.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
+        }
+        print(data,"333333")
+        return SocioGroupSchema().dumps(data)
 
 
 class BaseCityListView(Resource):
@@ -184,8 +197,12 @@ class BaseCityListView(Resource):
         tags:
           - 前台主页
         """
-        basecity = BaseCity.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
-        return BaseCitySchema().dumps(basecity, many=True).data
+        data={
+            'code':200,
+            'msg':"数据已成功返回",
+            'data':BaseCity.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
+        }
+        return BaseCitySchema().dumps(data)
 
 
 class LpolicyListView(Resource):
@@ -198,10 +215,12 @@ class LpolicyListView(Resource):
         tags:
           - 前台主页
         """
-        lpolicy1 = Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
-        lpolicy2 = Local.query.filter_by(deleted=0).all()
-        lpolicy = lpolicy1+lpolicy2
-        return LpolicySchema().dumps(lpolicy, many=True).data
+        data={
+            'code':200,
+            'msg':"数据已成功返回",
+            'data':Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        }
+        return LpolicySchema().dumps(data)
 
 
 class PanalysisListView(Resource):
@@ -215,8 +234,13 @@ class PanalysisListView(Resource):
         tags:
           - 前台主页
         """
-        panalysis = Panalysis.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
-        return PanalysisSchema().dumps(panalysis, many=True).data
+        data={
+            'code':200,
+            'msg':"数据已成功返回",
+            'data':Panalysis.query.filter_by(deleted=0).paginate(page=1, per_page=5).items
+        }
+        print(data)
+        return PanalysisSchema().dumps(data)
 
 
 class AtrackingListView(Resource):
@@ -230,8 +254,12 @@ class AtrackingListView(Resource):
         tags:
           - 前台主页
         """
-        atracking = Atracking.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
-        return AtrackingSchema().dumps(atracking, many=True).data
+        data={
+            'code':200,
+            'msg':"数据已成功返回",
+            'data':Atracking.query.filter_by(deleted=0).paginate(page=1, per_page=5).items
+        }
+        return AtrackingSchema().dumps(data)
 
 
 class ScolumnListView(Resource):
@@ -245,5 +273,27 @@ class ScolumnListView(Resource):
         tags:
           - 前台主页
         """
-        scolumn = Scolumn.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
-        return ScolumnSchema().dumps(scolumn, many=True).data
+        data={
+            'code':200,
+            'msg':"数据已成功返回",
+            'data':Scolumn.query.filter_by(deleted=0).paginate(page=1, per_page=3).items
+        }
+        print(data,"2222")
+        return ScolumnSchema().dumps(data)
+
+class BroadcastListView(Resource):
+
+    def get(self):
+        """
+        轮播图列表
+        ---
+        tags:
+          - 前台主页
+        """
+        data={
+            'code':200,
+            'msg':"数据已成功返回",
+            'data':Broadcast.query.filter_by(deleted=0).paginate(page=1,per_page=4).items
+        }
+        print(data,"111111")
+        return BroadcastSchema().dumps(data)

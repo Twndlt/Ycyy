@@ -10,6 +10,33 @@ class Base(db.Model):
     deleted = db.Column(db.Integer, default=0)  # 逻辑删除:0表示显示，1表示删除
     active = db.Column(db.Integer, default=0)  # 禁用/启用:0表示显示，1表示删除
 
+class Base_one(Base):
+    """
+    继承Base类，创建Base1类
+    author lyfy
+    :return:{Id ， imagePaths，title，insertTime，pubtime，shortContent，source}
+    """
+    __abstract__ = True
+    id = db.Column(db.Integer, primary_key=True)
+    imagePaths = db.Column(db.String(50), unique=True)
+    title = db.Column(db.String(50), unique=True)
+    insertTime = db.Column(db.DateTime, default=datetime.utcnow)
+    pubtime = db.Column(db.DateTime, default=datetime.utcnow)
+    shortContent = db.Column(db.Text)
+    source = db.Column(db.String(255), unique=True)  # 来源
+    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+
+class Base_two(Base):
+    """"
+    继承Base类，创建Base2类
+    author lyfy
+    :return:{Id ,title}
+    """
+    __abstract__ = True
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+
 
 class User(Base):
     """
@@ -63,76 +90,48 @@ class User(Base):
         return User.query.filter_by(deleted=0).all()
 
 
-class Cmember(Base):
+class Cmember(Base_one):
     """
     部委
     author:lyfy
     :return:[<Cmember:XXX>]
     """
-    id = db.Column(db.Integer, primary_key=True)
-    imagePaths = db.Column(db.String(50), unique=True)
-    title = db.Column(db.String(50), unique=True)
-    insertTime = db.Column(db.DateTime, default=datetime.utcnow)
-    pubtime = db.Column(db.DateTime, default=datetime.utcnow)
-    shortContent = db.Column(db.Text)
-    source = db.Column(db.String(255), unique=True)  # 来源
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 
     def __repr__(self):
         return '<Cmember:{}>'.format(self.title)
 
 
-class Local(Base):
+class Local(Base_one):
     """
     地方
     @author lyfy
     :return:[<Local:XXX>]
     """
-    id = db.Column(db.Integer, primary_key=True)
-    imagePaths = db.Column(db.String(50), unique=True)
-    title = db.Column(db.String(50), unique=True)
-    insertTime = db.Column(db.DateTime, default=datetime.utcnow)
-    pubtime = db.Column(db.DateTime, default=datetime.utcnow)
-    shortContent = db.Column(db.Text)
-    source = db.Column(db.String(255), unique=True)  # 来源
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 
     def __repr__(self):
         return '<Local:{}>'.format(self.title)
 
 
-class Sgroups(Base):
+class SocioGroup(Base_one):
     """
     社会团体
     @author lyfy
-    :return:[<Sgroups:xxx>]
+    :return:[<SocioGroup:xxx>]
     """
-    id = db.Column(db.Integer, primary_key=True)
-    imagePaths = db.Column(db.String(50), unique=True)
-    title = db.Column(db.String(50), unique=True)
-    insertTime = db.Column(db.DateTime, default=datetime.utcnow)
-    pubtime = db.Column(db.DateTime, default=datetime.utcnow)
-    shortContent = db.Column(db.Text)
-    source = db.Column(db.String(255), unique=True)  # 来源
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 
     def __repr__(self):
-        return '<Sgroups:{}>'.format(self.title)
+        return '<SocioGroup:{}>'.format(self.title)
 
 
-class BaseCity(Base):
+class BaseCity(Base_one):
     """
     基地
     @author lyfy
     :return:[<BaseCity:xxx>]
     """
-    id = db.Column(db.Integer, primary_key=True)
-    imagePaths = db.Column(db.String(50), unique=True)
-    title = db.Column(db.String(50), unique=True)
-    insertTime = db.Column(db.DateTime, default=datetime.utcnow)
-    pubtime = db.Column(db.DateTime, default=datetime.utcnow)
-    shortContent = db.Column(db.Text)
-    source = db.Column(db.String(255), unique=True)  # 来源
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 
     def __repr__(self):
@@ -153,16 +152,14 @@ class Panalysis(Base):
         return '<Panalysis:{}>'.format(self.title)
 
 
-class Atracking(Base):
+class Atracking(Base_two):
     """"
     活动跟踪
     @author lyfy
     :return:[<Atracking:xxx>]
     """
-    id = db.Column(db.Integer, primary_key=True)
     Category = db.Column(db.String(50), unique=True)
     picPath = db.Column(db.String(50), unique=True)
-    title = db.Column(db.String(50), unique=True)
     source = db.Column(db.String(50), unique=True)  # 来源
     publishTime = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
@@ -171,14 +168,25 @@ class Atracking(Base):
         return '<Atracking:{}>'.format(self.title)
 
 
-class Scolumn(Base):
-    """"
+class Scolumn(Base_two):
+    """
     专题专栏
     @author lyfy
     :return:[<Scolumn:xxx>]
     """
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50), unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+
     def __repr__(self):
         return '<Scolumn:{}>'.format(self.title)
+
+class Broadcast(Base_two):
+    """"
+    轮播图
+    @author lyfy
+    :return:[<Broadcast:xxx>]
+    """
+    imagePaths = db.Column(db.String(200), unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+
+    def __repr__(self):
+        return '<Broadcast:{}>'.format(self.title)

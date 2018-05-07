@@ -5,8 +5,8 @@ import os
 from flask import (Flask,request....)
 """
 from flask import Blueprint
-from .home import (IndexView, CmemberListView, LocalListView, SgroupsListView,LpolicyListView,
-                   BaseCityListView,PanalysisListView, AtrackingListView, ScolumnListView)
+from .home import (IndexView, CmemberListView, LocalListView, SocioGroupListView,LpolicyListView,
+                   BaseCityListView,PanalysisListView, AtrackingListView, ScolumnListView,BroadcastListView)
 
 index = Blueprint('/', __name__)
 # 主页面路由
@@ -31,9 +31,9 @@ index.add_url_rule(
 )
 
 index.add_url_rule(
-    '/sgroup',
-    view_func=SgroupsListView.as_view('sgroup'),
-    endpoint="innp_only_sgroup",
+    '/sociogroup',
+    view_func=SocioGroupListView.as_view('sociogroup'),
+    endpoint="innp_only_sociogroup",
     methods=["GET"]
 )
 
@@ -66,8 +66,15 @@ index.add_url_rule(
 )
 
 index.add_url_rule(
-    '/scoiums',
-    view_func=ScolumnListView.as_view('scoiums'),
-    endpoint="innp_only_scoiums",
+    '/scolumn',
+    view_func=ScolumnListView.as_view('scolumn'),
+    endpoint="innp_only_scolums",
+    methods=["GET"]
+)
+
+index.add_url_rule(
+    '/broadcast',
+    view_func=BroadcastListView.as_view('broadcast'),
+    endpoint="innp_only_broadcast",
     methods=["GET"]
 )
