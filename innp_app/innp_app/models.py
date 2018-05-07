@@ -10,7 +10,7 @@ class Base(db.Model):
     deleted = db.Column(db.Integer, default=0)  # 逻辑删除:0表示显示，1表示删除
     active = db.Column(db.Integer, default=0)  # 禁用/启用:0表示显示，1表示删除
 
-class Base1(Base):
+class Base_one(Base):
     """
     继承Base类，创建Base1类
     author lyfy
@@ -26,7 +26,7 @@ class Base1(Base):
     source = db.Column(db.String(255), unique=True)  # 来源
     # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 
-class Base2(Base):
+class Base_two(Base):
     """"
     继承Base类，创建Base2类
     author lyfy
@@ -90,7 +90,7 @@ class User(Base):
         return User.query.filter_by(deleted=0).all()
 
 
-class Cmember(Base1):
+class Cmember(Base_one):
     """
     部委
     author:lyfy
@@ -102,7 +102,7 @@ class Cmember(Base1):
         return '<Cmember:{}>'.format(self.title)
 
 
-class Local(Base1):
+class Local(Base_one):
     """
     地方
     @author lyfy
@@ -114,7 +114,7 @@ class Local(Base1):
         return '<Local:{}>'.format(self.title)
 
 
-class SocioGroup(Base1):
+class SocioGroup(Base_one):
     """
     社会团体
     @author lyfy
@@ -126,7 +126,7 @@ class SocioGroup(Base1):
         return '<SocioGroup:{}>'.format(self.title)
 
 
-class BaseCity(Base1):
+class BaseCity(Base_one):
     """
     基地
     @author lyfy
@@ -152,7 +152,7 @@ class Panalysis(Base):
         return '<Panalysis:{}>'.format(self.title)
 
 
-class Atracking(Base2):
+class Atracking(Base_two):
     """"
     活动跟踪
     @author lyfy
@@ -168,7 +168,7 @@ class Atracking(Base2):
         return '<Atracking:{}>'.format(self.title)
 
 
-class Scolumn(Base2):
+class Scolumn(Base_two):
     """
     专题专栏
     @author lyfy
@@ -179,7 +179,7 @@ class Scolumn(Base2):
     def __repr__(self):
         return '<Scolumn:{}>'.format(self.title)
 
-class Broadcast(Base2):
+class Broadcast(Base_two):
     """"
     轮播图
     @author lyfy
