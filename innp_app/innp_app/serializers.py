@@ -4,8 +4,14 @@
 import os
 from flask import (Flask,request....)
 """
-from marshmallow import (Schema, fields, validate, post_load,
-                         validates_schema, ValidationError)
+from marshmallow import (Schema, fields, validate)
+
+__all__ = [
+    'CmemberSchema', 'LocalSchema', 'BroadcastSchema', 'SocioGroupSchema',
+    'BaseCitySchema', 'LpolicySchema', 'AtrackingSchema', 'ScolumnSchema',
+    'PanalysisSchema'
+]
+
 
 class Schema_one(Schema):
     """
@@ -23,6 +29,7 @@ class Schema_one(Schema):
     code = fields.Integer(requeired=True)
     msg = fields.String(requeired=True)
 
+
 class Schema_two(Schema):
     """
     继承Schema类，创建Schema2类
@@ -34,13 +41,16 @@ class Schema_two(Schema):
     code = fields.Integer(requeired=True)
     msg = fields.String(requeired=True)
 
+
 class CmemberSchema(Schema_one):
     """
     部委
     author:lyfy
     :return:Id ， imagePaths，title，insertTime，pubtime，shortContent，source
     """
-    data = fields.Nested('self',only=["id","imagePaths","title","insertTime","pubtime","shortContent","source"],many=True)
+    data = fields.Nested('self', only=["id", "imagePaths", "title", "insertTime", "pubtime", "shortContent", "source"],
+                         many=True)
+
 
 class LocalSchema(Schema_one):
     """
@@ -48,7 +58,8 @@ class LocalSchema(Schema_one):
     author:lyfy
     :return:Id，imagePaths，insertTime，pubtime，shortContent,source,title
     """
-    data = fields.Nested('self',only=["id","imagePaths","title","insertTime","pubtime","shortContent","source"],many=True)
+    data = fields.Nested('self', only=["id", "imagePaths", "title", "insertTime", "pubtime", "shortContent", "source"],
+                         many=True)
 
 
 class SocioGroupSchema(Schema_one):
@@ -57,7 +68,9 @@ class SocioGroupSchema(Schema_one):
     author:lyfy
     :return:Id,imagePaths,insertTime,pubtime,shortContent,source,title
     """
-    data = fields.Nested('self',only=["id","imagePaths","title","insertTime","pubtime","shortContent","source"],many=True)
+    data = fields.Nested('self', only=["id", "imagePaths", "title", "insertTime", "pubtime", "shortContent", "source"],
+                         many=True)
+
 
 class BaseCitySchema(Schema_one):
     """
@@ -65,7 +78,9 @@ class BaseCitySchema(Schema_one):
     author:lyfy
     :return:Id，imagePaths，insertTime，pubtime，shortContent，source，title
     """
-    data = fields.Nested('self',only=["id","imagePaths","title","insertTime","pubtime","shortContent","source"],many=True)
+    data = fields.Nested('self', only=["id", "imagePaths", "title", "insertTime", "pubtime", "shortContent", "source"],
+                         many=True)
+
 
 class LpolicySchema(Schema_two):
     """
@@ -76,7 +91,8 @@ class LpolicySchema(Schema_two):
     pubtime = fields.DateTime(dump_only=True)
     shortContent = fields.String(validate=validate.Length(6, 12), required=True)
     source = fields.String(validate=validate.Length(6, 12), required=True)
-    data = fields.Nested('self',only=["id","pubtime","shortContent","source","title"],many=True)
+    data = fields.Nested('self', only=["id", "pubtime", "shortContent", "source", "title"], many=True)
+
 
 class PanalysisSchema(Schema):
     """
@@ -88,7 +104,7 @@ class PanalysisSchema(Schema):
     title = fields.String(validate=validate.Length(6, 12), required=True)
     code = fields.Integer(requeired=True)
     msg = fields.String(requeired=True)
-    data = fields.Nested('self',only=["businessId","title"],many=True)
+    data = fields.Nested('self', only=["businessId", "title"], many=True)
 
 
 class AtrackingSchema(Schema_two):
@@ -101,7 +117,8 @@ class AtrackingSchema(Schema_two):
     publishTime = fields.DateTime(dump_only=True)
     source = fields.String(validate=validate.Length(6, 12), required=True)
     Category = fields.String(validate=validate.Length(6, 12), required=True)
-    data = fields.Nested('self',only=["id","title","picPath","publishTime","source","Category"],many=True)
+    data = fields.Nested('self', only=["id", "title", "picPath", "publishTime", "source", "Category"], many=True)
+
 
 class ScolumnSchema(Schema_two):
     """
@@ -109,7 +126,8 @@ class ScolumnSchema(Schema_two):
     author:lyfy
     :return:Id，title
     """
-    data = fields.Nested('self',only=["id","title"],many=True)
+    data = fields.Nested('self', only=["id", "title"], many=True)
+
 
 class BroadcastSchema(Schema_two):
     """"
@@ -118,4 +136,4 @@ class BroadcastSchema(Schema_two):
     :return:Id，title，imagepaths
     """
     imagePaths = fields.String(validate=validate.Length(6, 12), required=True)
-    data = fields.Nested('self',only=["id","title","imagePaths"],many=True)
+    data = fields.Nested('self', only=["id", "title", "imagePaths"], many=True)

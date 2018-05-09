@@ -5,8 +5,10 @@ import os
 from flask import (Flask,request....)
 """
 from flask import Blueprint
-from .home import (IndexView, CmemberListView, LocalListView, SocioGroupListView,LpolicyListView,
-                   BaseCityListView,PanalysisListView, AtrackingListView, ScolumnListView,BroadcastListView)
+
+from .home import (IndexView, CmemberListView, LocalListView, SocioGroupListView,
+                   LpolicyListView, BaseCityListView, PanalysisListView, AtrackingListView,
+                   ScolumnListView, BroadcastListView)
 
 index = Blueprint('/', __name__)
 # 主页面路由

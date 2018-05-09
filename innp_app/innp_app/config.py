@@ -21,8 +21,6 @@ class DevelopmentsConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://test:test@192.168.10.114:3306/innp_app?charset=utf8'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
-    SWAGGER_UI_JSONEDITOR = True
-
     SWAGGER = {
         "swagger_version": "2.0",
         "title": "Innp项目",
@@ -30,7 +28,7 @@ class DevelopmentsConfig(BaseConfig):
             ('Access-Control-Allow-Origin', '*'),
             ('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, OPTIONS"),
             ('Access-Control-Allow-Credentials', "true"),
-            #('Content-Type', 'Application/json')
+            # ('Content-Type', 'Application/json')
         ],
         "specs": [
             {
