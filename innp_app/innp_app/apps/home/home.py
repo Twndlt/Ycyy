@@ -4,16 +4,18 @@
 import os
 from flask import (Flask,request....)
 """
-from flask import jsonify
+from flask import g
 from flask_restplus import Resource
 
+from innp_app.serializers import *
 
 from innp_app.models import (Cmember, Local, SocioGroup,
                              BaseCity, Panalysis, Atracking, Scolumn, Broadcast)
-from innp_app.serializers import *
+from innp_app.common.rest import RestView
 
 
-class IndexView(Resource):
+class IndexView(RestView):
+    method_decorators = ()
 
     def get(self):
         """
@@ -69,10 +71,17 @@ class IndexView(Resource):
           204:
              description: No recommendation found
         """
-        return jsonify({'id': 1})
+        data = {
+            'data': Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        }
+        content, errors = CmemberSchema().dump(data)
+        if errors:
+            return errors, 400
+
+        return content
 
 
-class CmemberListView(Resource):
+class CmemberListView(RestView):
 
     def get(self):
         """
@@ -84,11 +93,12 @@ class CmemberListView(Resource):
           - 前台主页
         """
         data = {
-            'code': 200,
-            'msg': "数据已成功返回",
             'data': Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
         }
-        return CmemberSchema().dumps(data)
+        content, errors = CmemberSchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
 
     def post(self):
         """
@@ -148,7 +158,7 @@ class CmemberListView(Resource):
         return {"user_data": "rest"}
 
 
-class LocalListView(Resource):
+class LocalListView(RestView):
     def get(self):
         """
         地方列表
@@ -164,10 +174,10 @@ class LocalListView(Resource):
             'data': Local.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
         }
         print(data)
-        return LocalSchema().dumps(data)
+        return LocalSchema().dump(data)
 
 
-class SocioGroupListView(Resource):
+class SocioGroupListView(RestView):
 
     def get(self):
         """
@@ -183,10 +193,10 @@ class SocioGroupListView(Resource):
             'msg': "数据已成功返回",
             'data': SocioGroup.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
         }
-        return SocioGroupSchema().dumps(data)
+        return SocioGroupSchema().dump(data)
 
 
-class BaseCityListView(Resource):
+class BaseCityListView(RestView):
 
     def get(self):
         """
@@ -202,10 +212,10 @@ class BaseCityListView(Resource):
             'msg': "数据已成功返回",
             'data': BaseCity.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
         }
-        return BaseCitySchema().dumps(data)
+        return BaseCitySchema().dump(data)
 
 
-class LpolicyListView(Resource):
+class LpolicyListView(RestView):
     def get(self):
         """
         最新政策列表
@@ -220,10 +230,10 @@ class LpolicyListView(Resource):
             'msg': "数据已成功返回",
             'data': Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
         }
-        return LpolicySchema().dumps(data)
+        return LpolicySchema().dump(data)
 
 
-class PanalysisListView(Resource):
+class PanalysisListView(RestView):
 
     def get(self):
         """
@@ -239,10 +249,10 @@ class PanalysisListView(Resource):
             'msg': "数据已成功返回",
             'data': Panalysis.query.filter_by(deleted=0).paginate(page=1, per_page=5).items
         }
-        return PanalysisSchema().dumps(data)
+        return PanalysisSchema().dump(data)
 
 
-class AtrackingListView(Resource):
+class AtrackingListView(RestView):
 
     def get(self):
         """
@@ -258,10 +268,10 @@ class AtrackingListView(Resource):
             'msg': "数据已成功返回",
             'data': Atracking.query.filter_by(deleted=0).paginate(page=1, per_page=5).items
         }
-        return AtrackingSchema().dumps(data)
+        return AtrackingSchema().dump(data)
 
 
-class ScolumnListView(Resource):
+class ScolumnListView(RestView):
 
     def get(self):
         """
@@ -277,10 +287,10 @@ class ScolumnListView(Resource):
             'msg': "数据已成功返回",
             'data': Scolumn.query.filter_by(deleted=0).paginate(page=1, per_page=3).items
         }
-        return ScolumnSchema().dumps(data)
+        return ScolumnSchema().dump(data)
 
 
-class BroadcastListView(Resource):
+class BroadcastListView(RestView):
 
     def get(self):
         """
@@ -294,4 +304,4 @@ class BroadcastListView(Resource):
             'msg': "数据已成功返回",
             'data': Broadcast.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
         }
-        return BroadcastSchema().dumps(data)
+        return BroadcastSchema().dump(data)
