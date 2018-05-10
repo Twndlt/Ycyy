@@ -1,44 +1,55 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
+from contextlib import contextmanager
+from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+
+
+class SQLAlchemy(_SQLAlchemy):
+    @contextmanager
+    def auto_commit(self):
+        try:
+            yield
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            raise e
+
 
 db = SQLAlchemy()
 
-class Base(db.Model):
-    __abstract__ = True
-    deleted = db.Column(db.Integer, default=0)  # 逻辑删除:0表示显示，1表示删除
-    active = db.Column(db.Integer, default=0)  # 禁用/启用:0表示显示，1表示删除
 
-class Base_one(Base):
+class _Base(db.Model):
+    __abstract__ = True
+    deleted = db.Column(db.SmallInteger, default=0)  # 逻辑删除:0表示显示，1表示删除
+    active = db.Column(db.SmallInteger, default=0)  # 禁用/启用:0表示显示，1表示删除
+
+
+class Base(_Base):
     """
-    继承Base类，创建Base1类
-    author lyfy
+    继承_Base类
+    :author lyfy
     :return:{Id ， imagePaths，title，insertTime，pubtime，shortContent，source}
     """
     __abstract__ = True
     id = db.Column(db.Integer, primary_key=True)
     imagePaths = db.Column(db.String(50), unique=True)
-    title = db.Column(db.String(50), unique=True)
+    title = db.Column(db.String(50), unique=True, nullable=True)
     insertTime = db.Column(db.DateTime, default=datetime.utcnow)
     pubtime = db.Column(db.DateTime, default=datetime.utcnow)
-    shortContent = db.Column(db.Text)
-    source = db.Column(db.String(255), unique=True)  # 来源
+    shortContent = db.Column(db.Text, nullable=True)
+    source = db.Column(db.String(255), unique=True, nullable=True)  # 来源
+
     # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 
-class Base_two(Base):
-    """"
-    继承Base类，创建Base2类
-    author lyfy
-    :return:{Id ,title}
-    """
-    __abstract__ = True
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50), unique=True)
-    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+    def set_attrs(self, attrs_dict):
+        for key, value in attrs_dict.items():
+            # hasattr(self,key) # 是否包含key
+            if hasattr(self, key) and key != 'id':
+                setattr(self, key, value)  # 给key赋值value （将value的值赋给key）
 
 
-class User(Base):
+class User(_Base):
     """
     用户表
     """
@@ -48,8 +59,8 @@ class User(Base):
     ROLE_ADMIN = 30
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), unique=True)
-    email = db.Column(db.String(40), unique=True)
+    username = db.Column(db.String(40), unique=True, nullable=False)
+    email = db.Column(db.String(40), unique=True, nullable=False)
     phone = db.Column(db.Integer)
     resume_url = db.String(db.String(255))
     _password = db.Column('password', db.String(256), nullable=False)
@@ -89,8 +100,14 @@ class User(Base):
     def get_alluser(self):
         return User.query.filter_by(deleted=0).all()
 
+    def set_attrs(self, attrs_dict):
+        for key, value in attrs_dict.items():
+            # hasattr(self,key) # 是否包含key
+            if hasattr(self, key) and key != 'id':
+                setattr(self, key, value)  # 给key赋值value （将value的值赋给key）
 
-class Cmember(Base_one):
+
+class Cmember(Base):
     """
     部委
     author:lyfy
@@ -102,7 +119,7 @@ class Cmember(Base_one):
         return '<Cmember:{}>'.format(self.title)
 
 
-class Local(Base_one):
+class Local(Base):
     """
     地方
     @author lyfy
@@ -114,7 +131,7 @@ class Local(Base_one):
         return '<Local:{}>'.format(self.title)
 
 
-class SocioGroup(Base_one):
+class SocioGroup(Base):
     """
     社会团体
     @author lyfy
@@ -126,7 +143,7 @@ class SocioGroup(Base_one):
         return '<SocioGroup:{}>'.format(self.title)
 
 
-class BaseCity(Base_one):
+class BaseCity(Base):
     """
     基地
     @author lyfy
@@ -138,26 +155,28 @@ class BaseCity(Base_one):
         return '<BaseCity:{}>'.format(self.title)
 
 
-class Panalysis(Base):
+class Panalysis(_Base):
     """"
     政策分析
     @author lyfy
     :return:[<Panalysis:xxx>]
     """
+    id = db.Column(db.Integer, primary_key=True)
     businessId = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50), unique=True)
+    title = db.Column(db.String(50), unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 
     def __repr__(self):
         return '<Panalysis:{}>'.format(self.title)
 
 
-class Atracking(Base_two):
+class Atracking(_Base):
     """"
     活动跟踪
     @author lyfy
     :return:[<Atracking:xxx>]
     """
+    id = db.Column(db.Integer, primary_key=True)
     Category = db.Column(db.String(50), unique=True)
     picPath = db.Column(db.String(50), unique=True)
     source = db.Column(db.String(50), unique=True)  # 来源
@@ -168,23 +187,26 @@ class Atracking(Base_two):
         return '<Atracking:{}>'.format(self.title)
 
 
-class Scolumn(Base_two):
+class Scolumn(_Base):
     """
     专题专栏
     @author lyfy
     :return:[<Scolumn:xxx>]
     """
+    id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 
     def __repr__(self):
         return '<Scolumn:{}>'.format(self.title)
 
-class Broadcast(Base_two):
+
+class Broadcast(_Base):
     """"
     轮播图
     @author lyfy
     :return:[<Broadcast:xxx>]
     """
+    id = db.Column(db.Integer, primary_key=True)
     imagePaths = db.Column(db.String(200), unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 

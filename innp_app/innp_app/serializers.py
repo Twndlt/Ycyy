@@ -4,7 +4,7 @@
 import os
 from flask import (Flask,request....)
 """
-from marshmallow import (Schema, fields, validate)
+from marshmallow import (Schema as _Schema, fields, validate)
 
 __all__ = [
     'CmemberSchema', 'LocalSchema', 'BroadcastSchema', 'SocioGroupSchema',
@@ -13,7 +13,7 @@ __all__ = [
 ]
 
 
-class Schema_one(Schema):
+class Schema(_Schema):
     """
     继承Schema类，创建Schema1类
     author lyfy
@@ -30,7 +30,7 @@ class Schema_one(Schema):
     msg = fields.String(requeired=True)
 
 
-class Schema_two(Schema):
+class Schema_one(_Schema):
     """
     继承Schema类，创建Schema2类
     author lyfy
@@ -42,7 +42,7 @@ class Schema_two(Schema):
     msg = fields.String(requeired=True)
 
 
-class CmemberSchema(Schema_one):
+class CmemberSchema(Schema):
     """
     部委
     author:lyfy
@@ -52,7 +52,7 @@ class CmemberSchema(Schema_one):
                          many=True)
 
 
-class LocalSchema(Schema_one):
+class LocalSchema(Schema):
     """
     地方
     author:lyfy
@@ -62,7 +62,7 @@ class LocalSchema(Schema_one):
                          many=True)
 
 
-class SocioGroupSchema(Schema_one):
+class SocioGroupSchema(Schema):
     """
     社会团体
     author:lyfy
@@ -72,7 +72,7 @@ class SocioGroupSchema(Schema_one):
                          many=True)
 
 
-class BaseCitySchema(Schema_one):
+class BaseCitySchema(Schema):
     """
     基地
     author:lyfy
@@ -82,7 +82,7 @@ class BaseCitySchema(Schema_one):
                          many=True)
 
 
-class LpolicySchema(Schema_two):
+class LpolicySchema(Schema_one):
     """
     最新政策
     author:lyfy
@@ -94,7 +94,7 @@ class LpolicySchema(Schema_two):
     data = fields.Nested('self', only=["id", "pubtime", "shortContent", "source", "title"], many=True)
 
 
-class PanalysisSchema(Schema):
+class PanalysisSchema(_Schema):
     """
     政策分析
     author:lyfy
@@ -107,7 +107,7 @@ class PanalysisSchema(Schema):
     data = fields.Nested('self', only=["businessId", "title"], many=True)
 
 
-class AtrackingSchema(Schema_two):
+class AtrackingSchema(Schema_one):
     """
     活动跟踪
     author:lyfy
@@ -120,7 +120,7 @@ class AtrackingSchema(Schema_two):
     data = fields.Nested('self', only=["id", "title", "picPath", "publishTime", "source", "Category"], many=True)
 
 
-class ScolumnSchema(Schema_two):
+class ScolumnSchema(Schema_one):
     """
     专题专栏
     author:lyfy
@@ -129,7 +129,7 @@ class ScolumnSchema(Schema_two):
     data = fields.Nested('self', only=["id", "title"], many=True)
 
 
-class BroadcastSchema(Schema_two):
+class BroadcastSchema(Schema_one):
     """"
     轮播图
     author:lyfy

@@ -12,9 +12,9 @@ def register_extensions(app):
 
 
 def register_blueprints(app):
-    from .apps import index
+    from .apps import index, icnpp
     app.register_blueprint(index)
-    # app.register_blueprint(docs)
+    app.register_blueprint(icnpp)
 
 
 def create_app(config):
@@ -23,6 +23,5 @@ def create_app(config):
     register_blueprints(app)  # 注册路由
     register_extensions(app)  # 数据库热迁移
     Swagger(app)  # 使用Swagger
-
 
     return app

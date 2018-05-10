@@ -4,9 +4,6 @@
 import os
 from flask import (Flask,request....)
 """
-from flask import g
-from flask_restplus import Resource
-
 from innp_app.serializers import *
 
 from innp_app.models import (Cmember, Local, SocioGroup,
@@ -15,14 +12,13 @@ from innp_app.common.rest import RestView
 
 
 class IndexView(RestView):
-    method_decorators = ()
 
     def get(self):
         """
         前端主页显示内容
         ---
         tags:
-          - 前台主页
+          - 前台页面
         parameters:
           - name: target_type
             in: path
@@ -90,7 +86,7 @@ class CmemberListView(RestView):
         :return:{Id ， imagePaths，title，insertTime，pubtime，shortContent，source}
         ---
         tags:
-          - 前台主页
+          - 前台页面
         """
         data = {
             'data': Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
@@ -105,7 +101,7 @@ class CmemberListView(RestView):
         新增部委数据
         ---
         tags:
-          - 前台主页
+          - 前台页面
         parameters:
           - name: target_type
             in: path
@@ -166,7 +162,7 @@ class LocalListView(RestView):
         :return:{Id，imagePaths，insertTime，pubtime，shortContent,source,title}
         ---
         tags:
-          - 前台主页
+          - 前台页面
         """
         data = {
             'code': 200,
@@ -186,7 +182,7 @@ class SocioGroupListView(RestView):
         :return:{Id，imagePaths，insertTime，pubtime，shortContent,source,title}
         ---
         tags:
-          - 前台主页
+          - 前台页面
         """
         data = {
             'code': 200,
@@ -205,7 +201,7 @@ class BaseCityListView(RestView):
         :return:{Id，imagePaths，insertTime，pubtime，shortContent,source,title}
         ---
         tags:
-          - 前台主页
+          - 前台页面
         """
         data = {
             'code': 200,
@@ -223,7 +219,7 @@ class LpolicyListView(RestView):
         :return:{Id，pubTime，shortContent，source，titile}
         ---
         tags:
-          - 前台主页
+          - 前台页面
         """
         data = {
             'code': 200,
@@ -242,7 +238,7 @@ class PanalysisListView(RestView):
         :return:{businessId，title}
         ---
         tags:
-          - 前台主页
+          - 前台页面
         """
         data = {
             'code': 200,
@@ -261,7 +257,7 @@ class AtrackingListView(RestView):
         :return:{Category，id，picPath，publishTime，source，title}
         ---
         tags:
-          - 前台主页
+          - 前台页面
         """
         data = {
             'code': 200,
@@ -280,7 +276,7 @@ class ScolumnListView(RestView):
         :return:{Id，title}
         ---
         tags:
-          - 前台主页
+          - 前台页面
         """
         data = {
             'code': 200,
@@ -297,7 +293,7 @@ class BroadcastListView(RestView):
         轮播图列表
         ---
         tags:
-          - 前台主页
+          - 前台页面
         """
         data = {
             'code': 200,
