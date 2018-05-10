@@ -13,7 +13,7 @@ http://127.0.0.1:5000/apidocs/
 
 ![swagger](https://github.com/litt1eseven/python-project/blob/master/Company%20project/images/api-swagger-list.png)
 
-## deploy（后期加）
+## deploy
 **Docker部署**
 
 - `将整个项目克隆，进入ycyy`
@@ -22,7 +22,7 @@ http://127.0.0.1:5000/apidocs/
 
 - `执行 ./build_docker.sh`
 
-- `等待执行完成，运行 http://localhost 查看即可`
+- `等待执行完成，运行 http://localhost:8080/apidocs/ 查看即可`
 
 ## doc(如果不用docker)
 **下载对应的库：** 
