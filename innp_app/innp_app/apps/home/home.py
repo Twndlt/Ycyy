@@ -10,6 +10,8 @@ from innp_app.models import (Cmember, Local, SocioGroup,
                              BaseCity, Panalysis, Atracking, Scolumn, Broadcast)
 from innp_app.common.rest import RestView
 
+from innp_app.view_models.index import IndexModelView
+
 
 class IndexView(RestView):
 
@@ -19,61 +21,13 @@ class IndexView(RestView):
         ---
         tags:
           - 前台页面
-        parameters:
-          - name: target_type
-            in: path
-            description: currently only "candidate" is supported
-            required: true
-            type: string
-            default: candidate
-          - name: item_type
-            in: path
-            description: currently only "openings" is supported
-            required: true
-            type: string
-            default: openings
-          - in: body
-            name: body
-            schema:
-              id: rec_query
-              required:
-                - candidate_id
-                - context
-              properties:
-                candidate_id:
-                  type: integer
-                  description: Id of the target (candidate / user)
-                  default: 123456
-                exclude:
-                  type: array
-                  description: item_ids to exclude from recs
-                  default: [12345, 123456]
-                  items:
-                      type: integer
-                context:
-                  type: object
-                  schema:
-                    $ref: '#/definitions/rec_query_context'
-        responses:
-          200:
-            description: A single recommendation item
-            schema:
-              id: rec_response
-              properties:
-                opening_id:
-                  type: integer
-                  description: The id of the opening
-                  default: 123456
-          204:
-             description: No recommendation found
         """
-        data = {
-            'data': Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
-        }
+        cmember = Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        data = IndexModelView()
+        data.fill(cmember)
         content, errors = CmemberSchema().dump(data)
         if errors:
             return errors, 400
-
         return content
 
 
@@ -102,53 +56,6 @@ class CmemberListView(RestView):
         ---
         tags:
           - 前台页面
-        parameters:
-          - name: target_type
-            in: path
-            description: currently only "candidate" is supported
-            required: true
-            type: string
-            default: candidate
-          - name: item_type
-            in: path
-            description: currently only "openings" is supported
-            required: true
-            type: string
-            default: openings
-          - in: body
-            name: body
-            schema:
-              id: rec_query
-              required:
-                - candidate_id
-                - context
-              properties:
-                candidate_id:
-                  type: integer
-                  description: Id of the target (candidate / user)
-                  default: 123456
-                exclude:
-                  type: array
-                  description: item_ids to exclude from recs
-                  default: [12345, 123456]
-                  items:
-                      type: integer
-                context:
-                  type: object
-                  schema:
-                    $ref: '#/definitions/rec_query_context'
-        responses:
-          200:
-            description: A single recommendation item
-            schema:
-              id: rec_response
-              properties:
-                opening_id:
-                  type: integer
-                  description: The id of the opening
-                  default: 123456
-          204:
-             description: No recommendation found
         """
         sechema = CmemberSchema(many=True)
         return {"user_data": "rest"}
