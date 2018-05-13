@@ -32,8 +32,8 @@ class Base(_Base):
     :return:{Id ， imagePaths，title，insertTime，pubtime，shortContent，source}
     """
     __abstract__ = True
-    id = db.Column(db.Integer, primary_key=True)
-    imagePaths = db.Column(db.String(50), unique=True)
+    id = db.Column(db.Integer, primary_key=True, doc="自增id")
+    imagePaths = db.Column(db.String(50), unique=True, doc="项目图片地址")
     title = db.Column(db.String(50), unique=True, nullable=True)
     insertTime = db.Column(db.DateTime, default=datetime.utcnow)
     pubtime = db.Column(db.DateTime, default=datetime.utcnow)
