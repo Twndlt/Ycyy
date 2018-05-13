@@ -7,3 +7,14 @@ services:
       command: "supervisord -c /usr/supervisord.conf -n"
       ports:
         - "8080:80"
+
+    db:
+      image: mysql
+      command: mysqld --default-authentication-plugin=mysql_native_password
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: ycyy123456
+      volumes:
+        - ./data/:/var/lib/mysql/:rw
+      ports:
+        - "3306:3306"
