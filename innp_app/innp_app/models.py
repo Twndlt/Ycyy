@@ -161,9 +161,9 @@ class Panalysis(_Base):
     @author lyfy
     :return:[<Panalysis:xxx>]
     """
-    id = db.Column(db.Integer, primary_key=True)
     businessId = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), unique=True, nullable=False)
+    type = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 
     def __repr__(self):
@@ -177,7 +177,8 @@ class Atracking(_Base):
     :return:[<Atracking:xxx>]
     """
     id = db.Column(db.Integer, primary_key=True)
-    Category = db.Column(db.String(50), unique=True)
+    title = db.Column(db.String(50), unique=True)
+    category = db.Column(db.String(50), unique=True)
     picPath = db.Column(db.String(50), unique=True)
     source = db.Column(db.String(50), unique=True)  # 来源
     publishTime = db.Column(db.DateTime, default=datetime.utcnow)
@@ -194,6 +195,9 @@ class Scolumn(_Base):
     :return:[<Scolumn:xxx>]
     """
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    type = db.Column(db.Integer)
+    category = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 
     def __repr__(self):
@@ -207,8 +211,45 @@ class Broadcast(_Base):
     :return:[<Broadcast:xxx>]
     """
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50),unique=True)
     imagePaths = db.Column(db.String(200), unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 
     def __repr__(self):
         return '<Broadcast:{}>'.format(self.title)
+
+
+class Lpolicy(_Base):
+    """"
+    最新政策
+    @author lyfy
+    :return:[<Lpolicy:xxx>]
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True, nullable=True)
+    pubtime = db.Column(db.DateTime, default=datetime.utcnow)
+    shortContent = db.Column(db.Text)
+    source = db.Column(db.String(255))  # 来源
+    issuedno = db.Column(db.String(50)) #发改运行〔xxx〕xxx号
+    issuedtime = db.Column(db.DateTime, default=datetime.utcnow)
+    link = db.Column(db.String(255))  #不知名网址
+    type = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+    def __repr__(self):
+        return '<Lpolicy:{}>'.format(self.title)
+
+
+class ServiceExpansion(_Base):
+    """
+    服务拓展
+    @author:lyfy
+    :return:
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), unique=True)
+    pubtime = db.Column(db.DateTime,default=datetime.utcnow)
+    shortContent = db.Column(db.String(255))
+    source = db.Column(db.String(255))
+    user_id = db.Column(db.Integer,db.ForeignKey('user.id'))
+    def __repr__(self):
+        return '<ServiceExpansion:{}>'.format(self.title)
