@@ -480,7 +480,7 @@ class ZhanXinListView(RestView):
         }
         data1= IndexModelView()
         data1.fill(data)
-        content, errors = ScolumnListSchema().dumps(data1)
+        content, errors = ScolumnListSchema().dump(data1)
         if errors:
             return errors, 400
         return content

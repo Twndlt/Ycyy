@@ -18,7 +18,7 @@ class DevelopmentsConfig(BaseConfig):
     DEBUG = True
     SECRET_KEY = '7d58afd5-5fdb-48b0-9c99-3466c2838745'
     JSON_AS_ASCII = False
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@127.0.0.1:3306/demo?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://test:test@192.168.10.114:3306/innp_app?charset=utf8'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
     # swagger 配置+跨域请求
