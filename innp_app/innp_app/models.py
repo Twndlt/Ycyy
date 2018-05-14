@@ -34,11 +34,11 @@ class Base(_Base):
     __abstract__ = True
     id = db.Column(db.Integer, primary_key=True, doc="自增id")
     imagePaths = db.Column(db.String(50), unique=True, doc="项目图片地址")
-    title = db.Column(db.String(50), unique=True, nullable=True)
-    insertTime = db.Column(db.DateTime, default=datetime.utcnow)
-    pubtime = db.Column(db.DateTime, default=datetime.utcnow)
-    shortContent = db.Column(db.Text, nullable=True)
-    source = db.Column(db.String(255), unique=True, nullable=True)  # 来源
+    title = db.Column(db.String(50), unique=True, nullable=True, doc="标题")
+    insertTime = db.Column(db.DateTime, default=datetime.utcnow, doc="时间")
+    pubtime = db.Column(db.DateTime, default=datetime.utcnow, doc="发布时间")
+    shortContent = db.Column(db.Text, nullable=True, doc="文章内容")
+    source = db.Column(db.String(255), unique=True, nullable=True, doc="文章来源")  # 来源
 
     # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
 
@@ -58,12 +58,12 @@ class User(_Base):
     ROLE_COMPANY = 20
     ROLE_ADMIN = 30
 
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(40), unique=True, nullable=False)
-    email = db.Column(db.String(40), unique=True, nullable=False)
-    phone = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True, doc="自增ID")
+    username = db.Column(db.String(40), unique=True, nullable=False, doc="用户名")
+    email = db.Column(db.String(40), unique=True, nullable=False, doc="邮箱")
+    phone = db.Column(db.Integer, doc="电话号码")
     resume_url = db.String(db.String(255))
-    _password = db.Column('password', db.String(256), nullable=False)
+    _password = db.Column('password', db.String(256), nullable=False, doc="密码")
     role = db.Column(db.SmallInteger, default=ROLE_USER)
     cmember = db.relationship('Cmember', uselist=False)  # 主键
 
@@ -113,7 +113,7 @@ class Cmember(Base):
     author:lyfy
     :return:[<Cmember:XXX>]
     """
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
 
     def __repr__(self):
         return '<Cmember:{}>'.format(self.title)
@@ -125,7 +125,7 @@ class Local(Base):
     @author lyfy
     :return:[<Local:XXX>]
     """
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
 
     def __repr__(self):
         return '<Local:{}>'.format(self.title)
@@ -137,7 +137,7 @@ class SocioGroup(Base):
     @author lyfy
     :return:[<SocioGroup:xxx>]
     """
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
 
     def __repr__(self):
         return '<SocioGroup:{}>'.format(self.title)
@@ -149,7 +149,7 @@ class BaseCity(Base):
     @author lyfy
     :return:[<BaseCity:xxx>]
     """
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
 
     def __repr__(self):
         return '<BaseCity:{}>'.format(self.title)
@@ -161,10 +161,10 @@ class Panalysis(_Base):
     @author lyfy
     :return:[<Panalysis:xxx>]
     """
-    id = db.Column(db.Integer, primary_key=True)
-    businessId = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50), unique=True, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+    businessId = db.Column(db.Integer, primary_key=True, doc="id")
+    title = db.Column(db.String(50), unique=True, nullable=False, doc="标题")
+    type = db.Column(db.Integer, doc="type状态码")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
 
     def __repr__(self):
         return '<Panalysis:{}>'.format(self.title)
@@ -176,12 +176,13 @@ class Atracking(_Base):
     @author lyfy
     :return:[<Atracking:xxx>]
     """
-    id = db.Column(db.Integer, primary_key=True)
-    Category = db.Column(db.String(50), unique=True)
-    picPath = db.Column(db.String(50), unique=True)
-    source = db.Column(db.String(50), unique=True)  # 来源
-    publishTime = db.Column(db.DateTime, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+    id = db.Column(db.Integer, primary_key=True, doc="自增ID")
+    title = db.Column(db.String(50), unique=True, doc="文章标题")
+    category = db.Column(db.String(50), unique=True, doc="cate状态码")
+    picPath = db.Column(db.String(50), unique=True, doc="图片地址")
+    source = db.Column(db.String(50), unique=True, doc="文章来源")  # 来源
+    publishTime = db.Column(db.DateTime, default=datetime.utcnow, doc="发布时间")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
 
     def __repr__(self):
         return '<Atracking:{}>'.format(self.title)
@@ -193,8 +194,11 @@ class Scolumn(_Base):
     @author lyfy
     :return:[<Scolumn:xxx>]
     """
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+    id = db.Column(db.Integer, primary_key=True, doc="自增id")
+    title = db.Column(db.String(50), unique=True, doc="文章标题")
+    type = db.Column(db.Integer, doc="type状态码")
+    category = db.Column(db.Integer, doc="category状态码")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
 
     def __repr__(self):
         return '<Scolumn:{}>'.format(self.title)
@@ -206,9 +210,46 @@ class Broadcast(_Base):
     @author lyfy
     :return:[<Broadcast:xxx>]
     """
-    id = db.Column(db.Integer, primary_key=True)
-    imagePaths = db.Column(db.String(200), unique=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 外键
+    id = db.Column(db.Integer, primary_key=True, doc="自增id")
+    title = db.Column(db.String(50),unique=True, doc="文章标题")
+    imagePaths = db.Column(db.String(200), unique=True, doc="图片地址")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
 
     def __repr__(self):
         return '<Broadcast:{}>'.format(self.title)
+
+
+class Lpolicy(_Base):
+    """"
+    最新政策
+    @author lyfy
+    :return:[<Lpolicy:xxx>]
+    """
+    id = db.Column(db.Integer, primary_key=True, doc="自增ID")
+    title = db.Column(db.String(50), unique=True, nullable=True, doc="文章标题")
+    pubtime = db.Column(db.DateTime, default=datetime.utcnow, doc="发布时间")
+    shortContent = db.Column(db.Text, doc="文章正文")
+    source = db.Column(db.String(255), doc="文章来源")  # 来源
+    issuedno = db.Column(db.String(50)) #发改运行〔xxx〕xxx号
+    issuedtime = db.Column(db.DateTime, default=datetime.utcnow)
+    link = db.Column(db.String(255))  #不知名网址
+    type = db.Column(db.Integer, doc="type状态码")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="引用外键")  # 外键
+    def __repr__(self):
+        return '<Lpolicy:{}>'.format(self.title)
+
+
+class ServiceExpansion(_Base):
+    """
+    服务拓展
+    @author:lyfy
+    :return:
+    """
+    id = db.Column(db.Integer, primary_key=True, doc="自增ID")
+    title = db.Column(db.String(50), unique=True, doc="文章标题")
+    pubtime = db.Column(db.DateTime,default=datetime.utcnow, doc="发布时间")
+    shortContent = db.Column(db.String(255), doc="正文内容")
+    source = db.Column(db.String(255), doc="文章来源")
+    user_id = db.Column(db.Integer,db.ForeignKey('user.id'), doc="引用外键")
+    def __repr__(self):
+        return '<ServiceExpansion:{}>'.format(self.title)
