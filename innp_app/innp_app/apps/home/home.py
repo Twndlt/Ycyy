@@ -5,12 +5,12 @@ import os
 from flask import (Flask,request....)
 """
 from innp_app.serializers import *
-
 from innp_app.models import (Cmember, Local, SocioGroup,
-                             BaseCity, Panalysis, Atracking, Scolumn, Broadcast)
+                             BaseCity, Panalysis, Atracking, Scolumn, Broadcast,Lpolicy,ServiceExpansion)
 from innp_app.common.rest import RestView
-
 from innp_app.view_models.index import IndexModelView
+from flask_restplus import Resource
+from flask import request
 
 
 class IndexView(RestView):
@@ -31,7 +31,7 @@ class IndexView(RestView):
         return content
 
 
-class CmemberListView(RestView):
+class CmemberView(RestView):
 
     def get(self):
         """
@@ -42,9 +42,9 @@ class CmemberListView(RestView):
         tags:
           - 前台页面
         """
-        data = {
-            'data': Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
-        }
+        cmember = Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        data = IndexModelView()
+        data.fill(cmember)
         content, errors = CmemberSchema().dump(data)
         if errors:
             return errors, 400
@@ -55,13 +55,60 @@ class CmemberListView(RestView):
         新增部委数据
         ---
         tags:
-          - 前台页面
+          - 前台主页
+        parameters:
+          - name: target_type
+            in: path
+            description: currently only "candidate" is supported
+            required: true
+            type: string
+            default: candidate
+          - name: item_type
+            in: path
+            description: currently only "openings" is supported
+            required: true
+            type: string
+            default: openings
+          - in: body
+            name: body
+            schema:
+              id: rec_query
+              required:
+                - candidate_id
+                - context
+              properties:
+                candidate_id:
+                  type: integer
+                  description: Id of the target (candidate / user)
+                  default: 123456
+                exclude:
+                  type: array
+                  description: item_ids to exclude from recs
+                  default: [12345, 123456]
+                  items:
+                      type: integer
+                context:
+                  type: object
+                  schema:
+                    $ref: '#/definitions/rec_query_context'
+        responses:
+          200:
+            description: A single recommendation item
+            schema:
+              id: rec_response
+              properties:
+                opening_id:
+                  type: integer
+                  description: The id of the opening
+                  default: 123456
+          204:
+             description: No recommendation found
         """
         sechema = CmemberSchema(many=True)
         return {"user_data": "rest"}
 
 
-class LocalListView(RestView):
+class LocalView(RestView):
     def get(self):
         """
         地方列表
@@ -71,16 +118,16 @@ class LocalListView(RestView):
         tags:
           - 前台页面
         """
-        data = {
-            'code': 200,
-            'msg': "数据已成功返回",
-            'data': Local.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
-        }
-        print(data)
-        return LocalSchema().dump(data)
+        local = Local.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
+        data = IndexModelView()
+        data.fill(local)
+        content, errors = LocalSchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
 
 
-class SocioGroupListView(RestView):
+class SocioGroupView(RestView):
 
     def get(self):
         """
@@ -91,15 +138,17 @@ class SocioGroupListView(RestView):
         tags:
           - 前台页面
         """
-        data = {
-            'code': 200,
-            'msg': "数据已成功返回",
-            'data': SocioGroup.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
-        }
-        return SocioGroupSchema().dump(data)
+        sociogroup = SocioGroup.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
+        data = IndexModelView()
+        data.fill(sociogroup)
+        print(data.data)
+        content, errors = SocioGroupSchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
 
 
-class BaseCityListView(RestView):
+class BaseCityView(RestView):
 
     def get(self):
         """
@@ -110,15 +159,16 @@ class BaseCityListView(RestView):
         tags:
           - 前台页面
         """
-        data = {
-            'code': 200,
-            'msg': "数据已成功返回",
-            'data': BaseCity.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
-        }
-        return BaseCitySchema().dump(data)
+        basecity = BaseCity.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
+        data = IndexModelView()
+        data.fill(basecity)
+        content, errors = BaseCitySchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
 
 
-class LpolicyListView(RestView):
+class LpolicyView(RestView):
     def get(self):
         """
         最新政策列表
@@ -128,15 +178,37 @@ class LpolicyListView(RestView):
         tags:
           - 前台页面
         """
-        data = {
-            'code': 200,
-            'msg': "数据已成功返回",
-            'data': Cmember.query.filter_by(deleted=0).paginate(page=1, per_page=2).items
-        }
-        return LpolicySchema().dump(data)
+        lpoicy = Lpolicy.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
+        data = IndexModelView()
+        data.fill(lpoicy)
+        print(data.data)
+        content, errors = LpolicySchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
 
 
-class PanalysisListView(RestView):
+class LpolicyLocalView(RestView):
+    def get(self):
+        """
+        最新政策——地方列表
+        :author lyfy
+        :return:{Id，pubTime，shortContent，source，titile}
+        ---
+        tags:
+          - 前台主页
+        """
+        lpoicy = Lpolicy.query.filter_by(deleted=0,type=1).paginate(page=1, per_page=4).items
+        data = IndexModelView()
+        data.fill(lpoicy)
+        print(data.data)
+        content, errors = LpolicySchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
+
+
+class PanalysisView(RestView):
 
     def get(self):
         """
@@ -147,15 +219,17 @@ class PanalysisListView(RestView):
         tags:
           - 前台页面
         """
-        data = {
-            'code': 200,
-            'msg': "数据已成功返回",
-            'data': Panalysis.query.filter_by(deleted=0).paginate(page=1, per_page=5).items
-        }
-        return PanalysisSchema().dump(data)
+        panalysis = Panalysis.query.filter_by(deleted=0,type=1).paginate(page=1, per_page=4).items
+        data = IndexModelView()
+        data.fill(panalysis)
+        print(data.data)
+        content, errors = PanalysisSchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
 
 
-class AtrackingListView(RestView):
+class AtrackingView(RestView):
 
     def get(self):
         """
@@ -166,15 +240,37 @@ class AtrackingListView(RestView):
         tags:
           - 前台页面
         """
-        data = {
-            'code': 200,
-            'msg': "数据已成功返回",
-            'data': Atracking.query.filter_by(deleted=0).paginate(page=1, per_page=5).items
-        }
-        return AtrackingSchema().dump(data)
+        atracking = Atracking.query.filter_by(deleted=0, category=1).paginate(page=1, per_page=10).items
+        data = IndexModelView()
+        data.fill(atracking)
+        print(data.data)
+        content, errors = AtrackingSchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
 
 
-class ScolumnListView(RestView):
+class AtrackingHitChinaView(RestView):
+    def get(self):
+        """
+        活动跟踪列表__创响中国
+        :author lyfy
+        :return:{Category，id，picPath，publishTime，source，title}
+        ---
+        tags:
+          - 前台主页
+        """
+        atracking = Atracking.query.filter_by(deleted=0, category=1).paginate(page=1, per_page=10).items
+        data = IndexModelView()
+        data.fill(atracking)
+        print(data.data)
+        content, errors = AtrackingSchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
+
+
+class ScolumnView(RestView):
 
     def get(self):
         """
@@ -185,15 +281,36 @@ class ScolumnListView(RestView):
         tags:
           - 前台页面
         """
-        data = {
-            'code': 200,
-            'msg': "数据已成功返回",
-            'data': Scolumn.query.filter_by(deleted=0).paginate(page=1, per_page=3).items
-        }
-        return ScolumnSchema().dump(data)
+        scolumn = Scolumn.query.filter_by(deleted=0).paginate(page=1, per_page=10).items
+        data = IndexModelView()
+        data.fill(scolumn)
+        print(data.data)
+        content, errors = ScolumnSchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
 
 
-class BroadcastListView(RestView):
+class ScolumnIndustriesView(RestView):
+    def get(self):
+        """
+        专题专栏__战略型新兴产业
+        :author lyfy
+        :return:{Id，title}
+        ---
+        tags:
+          - 前台主页
+        """
+        scolumn = Scolumn.query.filter_by(deleted=0,category=1).paginate(page=1,per_page=3).items
+        data = IndexModelView()
+        data.fill(scolumn)
+        content, errors = ScolumnSchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
+
+
+class BroadcastView(RestView):
 
     def get(self):
         """
@@ -202,9 +319,250 @@ class BroadcastListView(RestView):
         tags:
           - 前台页面
         """
-        data = {
-            'code': 200,
-            'msg': "数据已成功返回",
-            'data': Broadcast.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
+        broadcast = Broadcast.query.filter_by(deleted=0).paginate(page=1, per_page=3).items
+        data = IndexModelView()
+        data.fill(broadcast)
+        print(data.data)
+        content, errors = BroadcastSchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
+
+
+class DongTaiListOneListView(RestView):
+    def post(self):
+        """
+        动态列表_部委
+        ---
+        tags:
+          - 前台主页
+        """
+        pageNum = request.form['pageNum']
+        pageSize = request.form['pageSize']
+        data={
+            'allCounts': len(Cmember.query.filter_by(deleted=0).all()),
+            'currentPage': 1,
+            'list': Cmember.query.filter_by(deleted=0).paginate(page=int(pageNum), per_page=int(pageSize)).items,
+            'pageCounts': (len(Cmember.query.filter_by(deleted=0).all()) - 1) // 10 + 1,
+            'pageSize': 10
         }
-        return BroadcastSchema().dump(data)
+        data1= IndexModelView()
+        data1.fill(data)
+        content, errors = DongTaiListSchema().dump(data1)
+        if errors:
+            return errors, 400
+        return content
+
+
+class DongTaiListTwoListView(RestView):
+    def post(self):
+        """
+        动态列表_地方
+        ---
+        tags:
+          - 前台主页
+        """
+        pageNum = request.form['pageNum']
+        pageSize = request.form['pageSize']
+        print('pageNum:', pageNum)
+        data={
+            'allCounts': len(Local.query.filter_by(deleted=0).all()),
+            'currentPage': 1,
+            'list': Local.query.filter_by(deleted=0).paginate(page=int(pageNum), per_page=int(pageSize)).items,
+            'pageCounts': (len(Local.query.filter_by(deleted=0).all()) - 1) // 10 + 1,
+            'pageSize': 10
+        }
+        data1= IndexModelView()
+        data1.fill(data)
+        content, errors = DongTaiListSchema().dump(data1)
+        if errors:
+            return errors, 400
+        return content
+
+
+class DongTaiListThreeListView(RestView):
+    def post(self):
+        """
+        动态列表_基地
+        ---
+        tags:
+          - 前台主页
+        """
+        pageNum = request.form['pageNum']
+        pageSize = request.form['pageSize']
+        data = {
+            'allCounts': len(BaseCity.query.filter_by(deleted=0).all()),
+            'currentPage': 1,
+            'list': BaseCity.query.filter_by(deleted=0).paginate(page=int(pageNum), per_page=int(pageSize)).items,
+            'pageCounts': (len(BaseCity.query.filter_by(deleted=0).all()) - 1) // 10 + 1,
+            'pageSize': 10
+        }
+        data1= IndexModelView()
+        data1.fill(data)
+        content, errors = DongTaiListSchema().dump(data1)
+        if errors:
+            return errors, 400
+        return content
+
+
+class DongTaiListFourListView(RestView):
+    def post(self):
+        """
+        动态列表_社会团体
+        ---
+        tags:
+          - 前台主页
+        """
+        pageNum = request.form['pageNum']
+        pageSize = request.form['pageSize']
+        data = {
+            'allCounts': len(SocioGroup.query.filter_by(deleted=0).all()),
+            'currentPage': 1,
+            'list': SocioGroup.query.filter_by(deleted=0).paginate(page=int(pageNum), per_page=int(pageSize)).items,
+            'pageCounts': (len(SocioGroup.query.filter_by(deleted=0).all()) - 1) // 10 + 1,
+            'pageSize': 10
+        }
+        data1= IndexModelView()
+        data1.fill(data)
+        content, errors = DongTaiListSchema().dump(data1)
+        if errors:
+            return errors, 400
+        return content
+
+
+class AllNewGaiListView(RestView):
+    def post(self):
+        """
+        专题专栏——全面创新改革列表
+        ---
+        tags:
+          - 前台主页
+        """
+        pageNum = request.form['pageNum']
+        category = request.form['category']  # 各个列表种类
+        pageSize = request.form['pageSize']
+        type = request.form['type']  # 分全面创新改革，战略性新兴产业
+        print(request.form)
+        data = {
+            'allCounts': len(Scolumn.query.filter_by(deleted=0).all()),
+            'currentPage': 1,
+            'list': Scolumn.query.filter_by(deleted=0, type=type, category=category).paginate(page=int(pageNum),per_page=int(pageSize)).items,
+            'pageCounts': (len(Scolumn.query.filter_by(deleted=0).all()) - 1) // 10 + 1,
+            'pageSize': 10
+        }
+        data1= IndexModelView()
+        data1.fill(data)
+        print(data)
+        content, errors = ScolumnListSchema().dump(data1)
+        if errors:
+            return errors, 400
+        return content
+
+
+class ZhanXinListView(RestView):
+    def post(self):
+        """
+        专题专栏——战略性新兴产业
+        ---
+        tags:
+          - 前台主页
+        """
+        pageNum = request.form['pageNum']
+        category = request.form['category']
+        pageSize = request.form['pageSize']
+        type = request.form['type']
+        data = {
+            'allCounts': len(Scolumn.query.filter_by(deleted=0).all()),
+            'currentPage': 1,
+            'list': Scolumn.query.filter_by(deleted=0, category=category, type=type).paginate(page=int(pageNum),per_page=int(pageSize)).items,
+            'pageCounts': (len(Scolumn.query.filter_by(deleted=0).all()) - 1) // 10 + 1,
+            'pageSize': 10
+        }
+        data1= IndexModelView()
+        data1.fill(data)
+        content, errors = ScolumnListSchema().dump(data1)
+        if errors:
+            return errors, 400
+        return content
+
+
+class NewDepartureListView(RestView):
+    def post(self):
+        """
+            最新政策列表
+            ---
+            tags:
+              - 前台主页
+            """
+        pageNum = request.form['pageNum']
+        pageSize = request.form['pageSize']
+        type = request.form['type']
+        data = {
+            'allCounts': len(Lpolicy.query.filter_by(deleted=0).all()),
+            'currentPage': 1,
+            'list': Lpolicy.query.filter_by(deleted=0, type=type).paginate(page=int(pageNum), per_page=int(pageSize)).items,
+            'pageCounts': (len(Lpolicy.query.filter_by(deleted=0).all()) - 1) // 10 + 1,
+            'pageSize': 10
+        }
+        data1= IndexModelView()
+        data1.fill(data)
+        content, errors = NewDepartureListSchema().dump(data1)
+        if errors:
+            return errors, 400
+        return content
+
+
+class PolicyAnalysisListView(RestView):
+    def post(self):
+        """
+            政策分析列表
+            ---
+            tags:
+              - 前台主页
+            """
+        type = request.form['type']
+        panalysis = Panalysis.query.filter_by(deleted=0, type=type).paginate(page=1, per_page=10).items
+        data = IndexModelView()
+        data.fill(panalysis)
+        content, errors = PolicyAnalysisListSchema().dump(data)
+        print(content)
+        if errors:
+            return errors, 400
+        return content
+
+
+class ActivitytrackingListView(RestView):
+    def post(self):
+        """
+        活动跟踪列表页
+        ---
+        tags:
+          - 前台主页
+        """
+        category = request.form['category']
+        atracking = Atracking.query.filter_by(deleted=0, category=category).paginate(page=1, per_page=10).items
+        data = IndexModelView()
+        data.fill(atracking)
+        content, errors = ActivitytrackingListSchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
+
+
+class ServiceExpansionListView(RestView):
+    def post(self):
+        """
+        服务拓展列表
+        @author:lyfy
+        :return:
+        ---
+        tags:
+          - 前台主页
+        """
+        service = ServiceExpansion.query.filter_by(deleted=0).paginate(page=1, per_page=10).items
+        data = IndexModelView()
+        data.fill(service)
+        content, errors = ServiceExpansionSchema().dump(data)
+        if errors:
+            return errors, 400
+        return content
