@@ -8,7 +8,7 @@ from flask import Blueprint
 
 from .icnpp import IndexView
 
-icnpp = Blueprint('icnpp', __name__, url_prefix='/admin')
+icnpp = Blueprint('icnpp', __name__)
 
 icnpp.add_url_rule(
     '/',

@@ -14,7 +14,7 @@ def register_extensions(app):
 def register_blueprints(app):
     from .apps import index, icnpp
     app.register_blueprint(index)
-    app.register_blueprint(icnpp)
+    app.register_blueprint(icnpp, url_prefix='/admin')
 
 
 def create_app(config):
