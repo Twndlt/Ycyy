@@ -19,6 +19,11 @@ class RestView(MethodView):
     json 序列化，异常处理，装饰器支持
     """
     content_type = 'application/json; charset=utf-8'
+    headers = [
+        ('Access-Control-Allow-Origin', '*'),
+        ('Access-Control-Allow-Methods', "GET, POST, PUT, DELETE, OPTIONS"),
+        ('Access-Control-Allow-Credentials', "true"),
+    ]
     method_decorators = []
 
     def handler_error(self, exception):
