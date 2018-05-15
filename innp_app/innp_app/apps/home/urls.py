@@ -8,11 +8,10 @@ from flask import Blueprint
 
 from .home import (IndexView, CmemberView, LocalView, SocioGroupView,
                    LpolicyView, BaseCityView, PanalysisView, AtrackingView,
-                   ScolumnView, BroadcastView, LpolicyLocalView, AtrackingHitChinaView,
-                   ScolumnIndustriesView, DongTaiListOneListView, DongTaiListTwoListView, DongTaiListThreeListView,
-                   DongTaiListFourListView, AllNewGaiListView, ZhanXinListView, NewDepartureListView,
-                   PolicyAnalysisListView,
-                   ActivitytrackingListView, ServiceExpansionListView)
+                   ScolumnView, BroadcastView,LpolicyLocalView,AtrackingHitChinaView,
+                   ScolumnIndustriesView,DongTaiListOneListView,DongTaiListTwoListView,DongTaiListThreeListView,
+                   DongTaiListFourListView,AllNewGaiListView,ZhanXinListView,NewDepartureListView,PolicyAnalysisListView,
+                   ActivitytrackingListView,ServiceExpansionListView)
 
 index = Blueprint('/', __name__)
 # 主页面路由
@@ -108,7 +107,7 @@ index.add_url_rule(
 
 index.add_url_rule(
     # 动态列表部委列表页
-    # 需传入：pageNum,pageSize
+    #需传入：pageNum,pageSize
     '/dongTaiOneList',
     view_func=DongTaiListOneListView.as_view('dongTaiOneList'),
     endpoint="innp_only_dongTaiOneList",
@@ -117,7 +116,7 @@ index.add_url_rule(
 
 index.add_url_rule(
     # 动态列表地方列表页
-    # 需传入：pageNum,pageSize
+    #需传入：pageNum,pageSize
     '/dongTaiTwoList',
     view_func=DongTaiListTwoListView.as_view('dongTaiTwoList'),
     endpoint="innp_only_dongTaiTwoList",
@@ -126,7 +125,7 @@ index.add_url_rule(
 
 index.add_url_rule(
     # 动态列表基地列表页
-    # 需传入：pageNum,pageSize
+    #需传入：pageNum,pageSize
     '/dongTaiThreeList',
     view_func=DongTaiListThreeListView.as_view('dongTaiThreeList'),
     endpoint="innp_only_dongTaiThreeList",
@@ -135,7 +134,7 @@ index.add_url_rule(
 
 index.add_url_rule(
     # 动态列表社会团体列表页
-    # 需传入：pageNum,pageSize
+    #需传入：pageNum,pageSize
     '/dongTaiFourList',
     view_func=DongTaiListFourListView.as_view('dongTaiFourList'),
     endpoint="innp_only_dongTaiFourList",
@@ -144,8 +143,8 @@ index.add_url_rule(
 
 index.add_url_rule(
     # 专题专栏——全面创新改革列表
-    # 需传入：pageNum,pageSize,type，category
-    # category(1:政策资讯,2:专题动态_中央快讯，3：部委讯息，4：地方报道)
+    #需传入：pageNum,pageSize,type，category
+    #category(1:政策资讯,2:专题动态_中央快讯，3：部委讯息，4：地方报道)
     '/allnewgai',
     view_func=AllNewGaiListView.as_view('allnewgai'),
     endpoint="innp_only_allnewgai",
@@ -154,8 +153,8 @@ index.add_url_rule(
 
 index.add_url_rule(
     # 专题专栏——战略性新兴产业
-    # 需传入：pageNum,pageSize,type，category
-    # category(5:政策资讯,6:专题动态_中央快讯，7：部委讯息，8：地方报道)
+    #需传入：pageNum,pageSize,type，category
+    #category(5:政策资讯,6:专题动态_中央快讯，7：部委讯息，8：地方报道)
     '/newIndustry',
     view_func=ZhanXinListView.as_view('newIndustry'),
     endpoint="innp_only_newIndustry",
@@ -164,7 +163,7 @@ index.add_url_rule(
 
 index.add_url_rule(
     # 最新政策列表
-    # 需传入：pageNum,pageSize,type
+    #需传入：pageNum,pageSize,type
     '/newdeparture',
     view_func=NewDepartureListView.as_view('newdeparture'),
     endpoint="innp_only_newdeparture",
@@ -173,7 +172,7 @@ index.add_url_rule(
 
 index.add_url_rule(
     # 政策分析列表
-    # 需传入：type
+    #需传入：type
     '/policyanalysis',
     view_func=PolicyAnalysisListView.as_view('policyanalysis'),
     endpoint="innp_only_policyanalysis",
@@ -181,8 +180,8 @@ index.add_url_rule(
 )
 
 index.add_url_rule(
-    # 活动跟踪列表
-    # 需传入category
+    #活动跟踪列表
+    #需传入category
     '/activitytracking',
     view_func=ActivitytrackingListView.as_view('activitytracking'),
     endpoint="innp_only_activitytracking",
@@ -190,7 +189,7 @@ index.add_url_rule(
 )
 
 index.add_url_rule(
-    # 服务拓展列表
+    #服务拓展列表
     '/serviceexpansion',
     view_func=ServiceExpansionListView.as_view('serviceexpansion'),
     endpoint="innp_only_serviceexpansion",

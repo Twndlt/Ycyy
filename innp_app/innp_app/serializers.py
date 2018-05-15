@@ -134,7 +134,8 @@ class ScolumnSchema(Schema_one):
     """
     type = fields.Integer(required=True)
     category = fields.Integer(required=True)
-    data = fields.Nested('self', only=["id", "title","type","category"], many=True)
+    pubTime = fields.DateTime(required=True)
+    data = fields.Nested('self', only=["id", "title","type","category","pubTime"], many=True)
 
 
 class BroadcastSchema(Schema_one):
