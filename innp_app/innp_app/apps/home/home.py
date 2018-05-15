@@ -6,7 +6,7 @@ from flask import (Flask,request....)
 """
 from innp_app.serializers import *
 from innp_app.models import (Cmember, Local, SocioGroup,
-                             BaseCity, Panalysis, Atracking, Scolumn, Broadcast, Lpolicy, ServiceExpansion)
+                             BaseCity, Panalysis, Atracking, Scolumn, Broadcast,Lpolicy,ServiceExpansion)
 from innp_app.common.rest import RestView
 from innp_app.view_models.index import IndexModelView
 from flask_restplus import Resource
@@ -196,7 +196,7 @@ class LpolicyLocalView(RestView):
         tags:
           - 前台主页
         """
-        lpoicy = Lpolicy.query.filter_by(deleted=0, type=1).paginate(page=1, per_page=4).items
+        lpoicy = Lpolicy.query.filter_by(deleted=0,type=1).paginate(page=1, per_page=4).items
         data = IndexModelView()
         data.fill(lpoicy)
         content, errors = LpolicySchema().dump(data)
@@ -216,7 +216,7 @@ class PanalysisView(RestView):
         tags:
           - 前台页面
         """
-        panalysis = Panalysis.query.filter_by(deleted=0, type=1).paginate(page=1, per_page=4).items
+        panalysis = Panalysis.query.filter_by(deleted=0,type=1).paginate(page=1, per_page=4).items
         data = IndexModelView()
         data.fill(panalysis)
         content, errors = PanalysisSchema().dump(data)
@@ -294,7 +294,7 @@ class ScolumnIndustriesView(RestView):
         tags:
           - 前台主页
         """
-        scolumn = Scolumn.query.filter_by(deleted=0, category=1).paginate(page=1, per_page=3).items
+        scolumn = Scolumn.query.filter_by(deleted=0,category=1).paginate(page=1,per_page=3).items
         data = IndexModelView()
         data.fill(scolumn)
         content, errors = ScolumnSchema().dump(data)
@@ -331,14 +331,14 @@ class DongTaiListOneListView(RestView):
         """
         pageNum = request.form['pageNum']
         pageSize = request.form['pageSize']
-        data = {
-            'allCounts': len(Cmember.query.filter_by(deleted=0).all()),
-            'currentPage': 1,
+        data={
+            'allCounts': Cmember.query.filter_by(deleted=0).count(),
+            'currentPage': pageNum,
             'list': Cmember.query.filter_by(deleted=0).paginate(page=int(pageNum), per_page=int(pageSize)).items,
-            'pageCounts': (len(Cmember.query.filter_by(deleted=0).all()) - 1) // 10 + 1,
-            'pageSize': 10
+            'pageCounts': Cmember.query.filter_by(deleted=0).paginate(page=int(pageNum), per_page=int(pageSize)).pages,
+            'pageSize': pageSize
         }
-        data1 = IndexModelView()
+        data1= IndexModelView()
         data1.fill(data)
         content, errors = DongTaiListSchema().dump(data1)
         if errors:
@@ -356,14 +356,14 @@ class DongTaiListTwoListView(RestView):
         """
         pageNum = request.form['pageNum']
         pageSize = request.form['pageSize']
-        data = {
-            'allCounts': len(Local.query.filter_by(deleted=0).all()),
-            'currentPage': 1,
+        data={
+            'allCounts': Local.query.filter_by(deleted=0).count(),
+            'currentPage': pageNum,
             'list': Local.query.filter_by(deleted=0).paginate(page=int(pageNum), per_page=int(pageSize)).items,
-            'pageCounts': (len(Local.query.filter_by(deleted=0).all()) - 1) // 10 + 1,
-            'pageSize': 10
+            'pageCounts': Local.query.filter_by(deleted=0).paginate(page=int(pageNum), per_page=int(pageSize)).pages,
+            'pageSize': pageSize
         }
-        data1 = IndexModelView()
+        data1= IndexModelView()
         data1.fill(data)
         content, errors = DongTaiListSchema().dump(data1)
         if errors:
@@ -381,15 +381,14 @@ class DongTaiListThreeListView(RestView):
         """
         pageNum = request.form['pageNum']
         pageSize = request.form['pageSize']
-
         data = {
-            'allCounts': len(BaseCity.query.filter_by(deleted=0).all()),
-            'currentPage': 1,
+            'allCounts': BaseCity.query.filter_by(deleted=0).count(),
+            'currentPage': pageNum,
             'list': BaseCity.query.filter_by(deleted=0).paginate(page=int(pageNum), per_page=int(pageSize)).items,
-            'pageCounts': BaseCity.query.filter_by(deleted=0).paginate.pages,
-            'pageSize': 10
+            'pageCounts': BaseCity.query.filter_by(deleted=0).paginate(page=int(pageNum), per_page=int(pageSize)).pages,
+            'pageSize': pageSize
         }
-        data1 = IndexModelView()
+        data1= IndexModelView()
         data1.fill(data)
         content, errors = DongTaiListSchema().dump(data1)
         if errors:
@@ -408,13 +407,13 @@ class DongTaiListFourListView(RestView):
         pageNum = request.form['pageNum']
         pageSize = request.form['pageSize']
         data = {
-            'allCounts': len(SocioGroup.query.filter_by(deleted=0).all()),
-            'currentPage': 1,
+            'allCounts': SocioGroup.query.filter_by(deleted=0).count(),
+            'currentPage': pageNum,
             'list': SocioGroup.query.filter_by(deleted=0).paginate(page=int(pageNum), per_page=int(pageSize)).items,
-            'pageCounts': (len(SocioGroup.query.filter_by(deleted=0).all()) - 1) // 10 + 1,
-            'pageSize': 10
+            'pageCounts': SocioGroup.query.filter_by(deleted=0).paginate(page=int(pageNum), per_page=int(pageSize)).pages,
+            'pageSize': pageSize
         }
-        data1 = IndexModelView()
+        data1= IndexModelView()
         data1.fill(data)
         content, errors = DongTaiListSchema().dump(data1)
         if errors:
@@ -435,15 +434,13 @@ class AllNewGaiListView(RestView):
         pageSize = request.form['pageSize']
         type = request.form['type']  # 分全面创新改革，战略性新兴产业
         data = {
-            'allCounts': len(Scolumn.query.filter_by(deleted=0).all()),
-            'currentPage': 1,
-            'list': Scolumn.query.filter_by(deleted=0, type=type, category=category).paginate(page=int(pageNum),
-                                                                                              per_page=int(
-                                                                                                  pageSize)).items,
-            'pageCounts': (len(Scolumn.query.filter_by(deleted=0).all()) - 1) // 10 + 1,
-            'pageSize': 10
+            'allCounts': Scolumn.query.filter_by(deleted=0, type=type, category=category).count(),
+            'currentPage': pageNum,
+            'list': Scolumn.query.filter_by(deleted=0, type=type, category=category).paginate(page=int(pageNum),per_page=int(pageSize)).items,
+            'pageCounts': Scolumn.query.filter_by(deleted=0, type=type, category=category).paginate(page=int(pageNum),per_page=int(pageSize)).pages,
+            'pageSize': pageSize
         }
-        data1 = IndexModelView()
+        data1= IndexModelView()
         data1.fill(data)
         content, errors = ScolumnListSchema().dump(data1)
         if errors:
@@ -464,15 +461,13 @@ class ZhanXinListView(RestView):
         pageSize = request.form['pageSize']
         type = request.form['type']
         data = {
-            'allCounts': Scolumn.query.count(),
-            'currentPage': 1,
-            'list': Scolumn.query.filter_by(deleted=0, category=category, type=type).paginate(page=int(pageNum),
-                                                                                              per_page=int(
-                                                                                                  pageSize)).items,
-            'pageCounts': Scolumn.query.filter_by(deleted=0).paginate(page=int(pageNum),per_page=int(pageSize)).pages,
-            'pageSize': 10
+            'allCounts': Scolumn.query.filter_by(deleted=0, category=category, type=type).count(),
+            'currentPage': pageNum,
+            'list': Scolumn.query.filter_by(deleted=0, category=category, type=type).paginate(page=int(pageNum),per_page=int(pageSize)).items,
+            'pageCounts': Scolumn.query.filter_by(deleted=0, category=category, type=type).paginate(page=int(pageNum),per_page=int(pageSize)).pages,
+            'pageSize': pageSize
         }
-        data1 = IndexModelView()
+        data1= IndexModelView()
         data1.fill(data)
         content, errors = ScolumnListSchema().dump(data1)
         if errors:
@@ -483,23 +478,22 @@ class ZhanXinListView(RestView):
 class NewDepartureListView(RestView):
     def post(self):
         """
-        最新政策列表
-        ---
-        tags:
-          - 前台主页
-        """
+            最新政策列表
+            ---
+            tags:
+              - 前台主页
+            """
         pageNum = request.form['pageNum']
         pageSize = request.form['pageSize']
         type = request.form['type']
         data = {
-            'allCounts': len(Lpolicy.query.filter_by(deleted=0).all()),
-            'currentPage': 1,
-            'list': Lpolicy.query.filter_by(deleted=0, type=type).paginate(page=int(pageNum),
-                                                                           per_page=int(pageSize)).items,
-            'pageCounts': (len(Lpolicy.query.filter_by(deleted=0).all()) - 1) // 10 + 1,
-            'pageSize': 10
+            'allCounts': Lpolicy.query.filter_by(deleted=0, type=type).count(),
+            'currentPage': pageNum,
+            'list': Lpolicy.query.filter_by(deleted=0, type=type).paginate(page=int(pageNum), per_page=int(pageSize)).items,
+            'pageCounts': Lpolicy.query.filter_by(deleted=0, type=type).paginate(page=int(pageNum), per_page=int(pageSize)).pages,
+            'pageSize': pageSize
         }
-        data1 = IndexModelView()
+        data1= IndexModelView()
         data1.fill(data)
         content, errors = NewDepartureListSchema().dump(data1)
         if errors:
