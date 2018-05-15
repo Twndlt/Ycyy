@@ -198,6 +198,7 @@ class Scolumn(_Base):
     title = db.Column(db.String(50), unique=True, doc="文章标题")
     type = db.Column(db.Integer, doc="type状态码")
     category = db.Column(db.Integer, doc="category状态码")
+    pubTime = db.Column(db.DateTime, default=datetime.utcnow, doc="发布时间")
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
 
     def __repr__(self):

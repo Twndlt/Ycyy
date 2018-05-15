@@ -278,6 +278,7 @@ class ScolumnView(RestView):
         scolumn = Scolumn.query.filter_by(deleted=0).paginate(page=1, per_page=10).items
         data = IndexModelView()
         data.fill(scolumn)
+        print(data.data[1].pubTime)
         content, errors = ScolumnSchema().dump(data)
         if errors:
             return errors, 400
