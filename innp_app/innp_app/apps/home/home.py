@@ -141,7 +141,6 @@ class SocioGroupView(RestView):
         sociogroup = SocioGroup.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
         data = IndexModelView()
         data.fill(sociogroup)
-        print(data.data)
         content, errors = SocioGroupSchema().dump(data)
         if errors:
             return errors, 400
@@ -181,7 +180,6 @@ class LpolicyView(RestView):
         lpoicy = Lpolicy.query.filter_by(deleted=0).paginate(page=1, per_page=4).items
         data = IndexModelView()
         data.fill(lpoicy)
-        print(data.data)
         content, errors = LpolicySchema().dump(data)
         if errors:
             return errors, 400
@@ -201,7 +199,6 @@ class LpolicyLocalView(RestView):
         lpoicy = Lpolicy.query.filter_by(deleted=0,type=1).paginate(page=1, per_page=4).items
         data = IndexModelView()
         data.fill(lpoicy)
-        print(data.data)
         content, errors = LpolicySchema().dump(data)
         if errors:
             return errors, 400
@@ -222,7 +219,6 @@ class PanalysisView(RestView):
         panalysis = Panalysis.query.filter_by(deleted=0,type=1).paginate(page=1, per_page=4).items
         data = IndexModelView()
         data.fill(panalysis)
-        print(data.data)
         content, errors = PanalysisSchema().dump(data)
         if errors:
             return errors, 400
@@ -243,7 +239,6 @@ class AtrackingView(RestView):
         atracking = Atracking.query.filter_by(deleted=0, category=1).paginate(page=1, per_page=10).items
         data = IndexModelView()
         data.fill(atracking)
-        print(data.data)
         content, errors = AtrackingSchema().dump(data)
         if errors:
             return errors, 400
@@ -263,7 +258,6 @@ class AtrackingHitChinaView(RestView):
         atracking = Atracking.query.filter_by(deleted=0, category=1).paginate(page=1, per_page=10).items
         data = IndexModelView()
         data.fill(atracking)
-        print(data.data)
         content, errors = AtrackingSchema().dump(data)
         if errors:
             return errors, 400
@@ -284,7 +278,6 @@ class ScolumnView(RestView):
         scolumn = Scolumn.query.filter_by(deleted=0).paginate(page=1, per_page=10).items
         data = IndexModelView()
         data.fill(scolumn)
-        print(data.data)
         content, errors = ScolumnSchema().dump(data)
         if errors:
             return errors, 400
@@ -322,7 +315,6 @@ class BroadcastView(RestView):
         broadcast = Broadcast.query.filter_by(deleted=0).paginate(page=1, per_page=3).items
         data = IndexModelView()
         data.fill(broadcast)
-        print(data.data)
         content, errors = BroadcastSchema().dump(data)
         if errors:
             return errors, 400
@@ -364,7 +356,6 @@ class DongTaiListTwoListView(RestView):
         """
         pageNum = request.form['pageNum']
         pageSize = request.form['pageSize']
-        print('pageNum:', pageNum)
         data={
             'allCounts': len(Local.query.filter_by(deleted=0).all()),
             'currentPage': 1,
@@ -442,7 +433,6 @@ class AllNewGaiListView(RestView):
         category = request.form['category']  # 各个列表种类
         pageSize = request.form['pageSize']
         type = request.form['type']  # 分全面创新改革，战略性新兴产业
-        print(request.form)
         data = {
             'allCounts': len(Scolumn.query.filter_by(deleted=0).all()),
             'currentPage': 1,
@@ -452,7 +442,6 @@ class AllNewGaiListView(RestView):
         }
         data1= IndexModelView()
         data1.fill(data)
-        print(data)
         content, errors = ScolumnListSchema().dump(data1)
         if errors:
             return errors, 400
@@ -525,7 +514,6 @@ class PolicyAnalysisListView(RestView):
         data = IndexModelView()
         data.fill(panalysis)
         content, errors = PolicyAnalysisListSchema().dump(data)
-        print(content)
         if errors:
             return errors, 400
         return content
