@@ -41,6 +41,290 @@ class Schema_one(_Schema):
     msg = fields.String(requeired=True)
 
 
+class OmanagementSchema(Schema):
+    """
+    机构管理
+    """
+    Onumber = fields.String(validate=validate.Length(6,12), required=True)
+    Nauthority = fields.String(required=True)
+    Oname = fields.String(required=True)
+    Iabbreviation = fields.String(required=True)
+    Iaddress = fields.String(required=True)
+    Imailbox = fields.String(required=True)
+    OWebsite = fields.String(required=True)
+    Cnumber = fields.String(required=True)
+    Mdescription = fields.String(required=True)
+
+
+class RmanagementSchema(Schema):
+    """
+    角色管理
+    """
+    Rename = fields.String(required=True)
+    Rdescription = fields.String(required=True)
+
+class UmanagementSchema(Schema):
+    """
+    用户管理
+    """
+    Ainstitutions = fields.String(required=True)
+    Theinstitution = fields.String(required=True)
+    Uname = fields.String(required=True)
+    Rname = fields.String(required=True)
+    IDnumber = fields.String(required=True)
+    DBirth = fields.String(required=True)
+    Sex = fields.String(required=True)
+    Mphone = fields.String(required=True)
+    Wphone = fields.String(required=True)
+    mailbox = fields.String(required=True)
+    Wlock = fields.String(required=True)
+    Dregistration = fields.String(required=True)
+
+
+class BPmanagementSchema(Schema):
+    """
+    banner图片管理
+    """
+    Name = fields.String(required=True)
+    Type = fields.String(required=True)
+    link = fields.String(required=True)
+    publisher = fields.String(required=True)
+    Rtime = fields.DateTime(dump_only=True)
+    Modifier = fields.String(required=True)
+    Mtime = fields.String(required=True)
+    sort = fields.Integer(required=True)
+    settop = fields.String(required=True)
+
+
+class MgroupSchema(Schema):
+    """
+    创业群体维护
+    """
+    Negroup = fields.String(required=True)
+    Aperson = fields.String(required=True)
+    Atime = fields.String(required=True)
+    Modifier = fields.String(required=True)
+    Mtime = fields.DateTime(required=True)
+    sort = fields.Integer(required=True)
+    settop = fields.String(required=True)
+
+
+class DmanagementSchema(Schema):
+    """
+    动态管理
+    """
+    title = fields.String(required=True)
+    bintroduction = fields.String(required=True)
+    Runit = fields.String(required=True)
+    Rtime = fields.DateTime(required=True,dump_only=True)
+    Ctime = fields.DateTime(dump_only=True)
+    sort = fields.Integer(required=True)
+    Rlogo = fields.String(required=True)
+    settop = fields.String(required=True)
+    Lmarkers = fields.String(required=True)
+
+
+class PromanagementSchema(Schema):
+    """
+    宣传位管理
+    """
+    Name = fields.String(required=True)
+    link = fields.String(required=True)
+    describe = fields.String(required=True)
+    sort = fields.Integer(required=True)
+    category = fields.String(required=True)
+    settop = fields.String(required=True)
+
+
+class FmanagementSchema(Schema):
+    """
+    金融资讯管理
+    """
+    Name = fields.String(required=True)
+    link = fields.String(required=True)
+    sort = fields.Integer(required=True)
+    category = fields.String(required=True)
+    settop = fields.String(required=True)
+
+
+class bmanagementSchema(Schema):
+    """
+    金融机构管理
+    """
+    Name = fields.String(required=True)
+    link = fields.String(required=True)
+    Route = fields.String(required=True)
+    sort = fields.String(required=True)
+    category = fields.String(required=True)
+    settop = fields.String(required=True)
+
+class TmanagementShema(Schema):
+    """
+    技术资讯管理
+    """
+    Name = fields.String(required=True)
+    link = fields.String(required=True)
+    sort = fields.Integer(required=True)
+    category = fields.String(required=True)
+    settop = fields.String(required=True)
+
+class MinstitutionsSchema(Schema):
+    """
+    技术机构管理
+    """
+    Name = fields.String(required=True)
+    link = fields.String(required=True)
+    Route = fields.String(required=True)
+    sort = fields.Integer(required=True)
+    category = fields.String(required=True)
+    settop = fields.String(required=True)
+
+
+class TimanagementSchema(Schema):
+    """
+    人才资讯管理
+    """
+    Name = fields.String(required=True)
+    link = fields.String(required=True)
+    sort = fields.Integer(required=True)
+    category = fields.String(required=True)
+    settop = fields.String(required=True)
+
+
+class TamanagementSchema(Schema):
+    """
+    人才机构管理
+    """
+    Name = fields.String(required=True)
+    link = fields.String(required=True)
+    Route = fields.String(required=True)
+    sort = fields.Integer(required=True)
+    category = fields.String(required=True)
+    settop = fields.String(required=True)
+
+class SitemanagementSchema(Schema):
+    """
+    场地资讯管理
+    """
+    Name = fields.String(required=True)
+    link = fields.String(required=True)
+    sort = fields.Integer(required=True)
+    category = fields.String(required=True)
+    settop = fields.String(required=True)
+
+class positionmanagementSchema(Schema):
+    """
+    宣传位管理
+    """
+    Name = fields.String(required=True)
+    link = fields.String(required=True)
+    Route = fields.String(required=True)
+    Insertuser = fields.String(required=True)
+    Insertiontime = fields.DateTime(dump_only=True)
+    Updateuser = fields.String(required=True)
+    utime = fields.DateTime(required=True)
+    sort = fields.Integer(required=True)
+    settop = fields.String(required=True)
+
+class AmanagementSchema(Schema):
+    """
+    成果展示管理
+    """
+    title = fields.String(required=True)
+    Rtime = fields.DateTime(required=True)
+    Ctime = fields.DateTime(required=True)
+    sort = fields.Integer(required=True)
+    Rlogo = fields.String(required=True)
+    settop = fields.String(required=True)
+
+class MediamanageSchema(Schema):
+    """
+    媒体管理
+    """
+    meidaName = fields.String(required=True)
+    businessType = fields.String(required=True)
+    mediaType = fields.String(required=True)
+    href = fields.String(required=True)
+    top = fields.String(required=True)
+
+class ActivityManageSchema(Schema):
+    """
+    活动管理
+    """
+    activityTitle = fields.String(required=True)
+    activityType = fields.String(required=True)
+    area = fields.String(required=True)
+    activity = fields.String(required=True)
+    releaseUnit = fields.String(required=True)
+    releasePeople = fields.String(required=True)
+    releaseTime = fields.DateTime(required=True)
+    source = fields.String(required=True)
+    mkdirTime = fields.DateTime(required=True)
+    modifier = fields.String(required=True)
+    modifyTime = fields.DateTime(required=True)
+
+class MascotSchema(Schema):
+    """
+    吉祥物管理
+    """
+    title = fields.String(required=True)
+    intro = fields.String(required=True)
+    releasePeople = fields.String(required=True)
+    releaseTime = fields.DateTime(required=True)
+    mkdirTime = fields.DateTime(required=True)
+    modifier = fields.String(required=True)
+    modifyTime = fields.DateTime(required=True)
+    sort = fields.Integer(required=True)
+    top = fields.String(required=True)
+    releaseNote = fields.String(required=True)
+
+class GuestSchema(Schema):
+    """
+    嘉宾管理
+    """
+    title = fields.String(required=True)
+    activityType = fields.String(required=True)
+    publisher = fields.String(required=True)
+    releaseTime = fields.DateTime(required=True)
+    mkdirTime = fields.DateTime(required=True)
+    modifier = fields.String(required=True)
+    modifyTime = fields.DateTime(required=True)
+    sort = fields.Integer(required=True)
+    top = fields.String(required=True)
+    releaseNote = fields.String(required=True)
+
+class HallSchema(Schema):
+    """
+    展厅管理
+    """
+    title = fields.String(required=True)
+    intro = fields.String(required=True)
+    releasePeople = fields.String(required=True)
+    releaseTime = fields.DateTime(required=True)
+    mkdirTime = fields.DateTime(required=True)
+    modifier = fields.String(required=True)
+    modifyTime = fields.DateTime(required=True)
+    sort = fields.Integer(required=True)
+    top = fields.String(required=True)
+    releaseNote = fields.String(required=True)
+
+class ActivityTypeSchema(Schema):
+    """
+    活动类别管理
+    """
+    activityTitle = fields.String(required=True)
+    activityType = fields.String(required=True)
+    activityIntro = fields.String(required=True)
+    releasePeople = fields.String(required=True)
+    releaseTime = fields.DateTime(required=True)
+    modifier = fields.String(required=True)
+    updateTime = fields.DateTime(required=True)
+    status = fields.String(required=True)
+    pageView = fields.Integer(required=True)
+    href = fields.String(required=True)
+
+
+
 class CmemberSchema(Schema):
     """
     部委
@@ -134,8 +418,7 @@ class ScolumnSchema(Schema_one):
     """
     type = fields.Integer(required=True)
     category = fields.Integer(required=True)
-    pubTime = fields.DateTime(required=True)
-    data = fields.Nested('self', only=["id", "title","type","category","pubTime"], many=True)
+    data = fields.Nested('self', only=["id", "title","type","category"], many=True)
 
 
 class BroadcastSchema(Schema_one):
