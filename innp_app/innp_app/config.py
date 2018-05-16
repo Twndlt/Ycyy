@@ -14,6 +14,7 @@ class DevelopmentsConfig(BaseConfig):
     开发环境
     """
     DEBUG = True
+
     SECRET_KEY = '7d58afd5-5fdb-48b0-9c99-3466c2838745'
     JSON_AS_ASCII = False
     SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://root:ycyy123456@192.168.10.183:3306/innp_app'
