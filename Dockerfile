@@ -13,6 +13,6 @@ COPY docker-dev/innp /etc/nginx/conf.d/default.conf
 WORKDIR /home/innp_app/
 
 # 安装项目所需的第三方
-RUN python3 -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple  -r requirements.txt \
-    && python3 -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple \
-    gunicorn
+RUN python3 -m pip install -i https://pypi.douban.com/simple  -r requirements.txt \
+    && python3 -m pip install -i https://pypi.douban.com/simple \
+    gunicorn \
