@@ -7,6 +7,7 @@
 * [陈海源](https://github.com/chenhaiyuan53880/Ycyy)
 * [吴有为](https://github.com/1191464964/Ycyy)
 * [袁蒙恩](https://github.com/mengshensan/Ycyy)
+* [王鹏程](https://github.com/Twndlt/Ycyy)
 
 ## API 列表
 http://127.0.0.1:5000/apidocs/
