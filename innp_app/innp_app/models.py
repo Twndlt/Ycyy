@@ -2,7 +2,7 @@
 from datetime import datetime
 from contextlib import contextmanager
 
-import Integer as Integer
+# import integer as Integer
 from flask_sqlalchemy import SQLAlchemy as _SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -157,6 +157,110 @@ class BaseCity(Base):
         return '<BaseCity:{}>'.format(self.title)
 
 
+class Panalysis(_Base):
+    """"
+    政策分析
+    @author lyfy
+    :return:[<Panalysis:xxx>]
+    """
+    businessId = db.Column(db.Integer, primary_key=True, doc="id")
+    title = db.Column(db.String(50), unique=True, nullable=False, doc="标题")
+    type = db.Column(db.Integer, doc="type状态码")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
+
+    def __repr__(self):
+        return '<Panalysis:{}>'.format(self.title)
+
+
+class Atracking(_Base):
+    """"
+    活动跟踪
+    @author lyfy
+    :return:[<Atracking:xxx>]
+    """
+    id = db.Column(db.Integer, primary_key=True, doc="自增ID")
+    title = db.Column(db.String(50), unique=True, doc="文章标题")
+    category = db.Column(db.String(50), unique=True, doc="cate状态码")
+    picPath = db.Column(db.String(50), unique=True, doc="图片地址")
+    source = db.Column(db.String(50), unique=True, doc="文章来源")  # 来源
+    publishTime = db.Column(db.DateTime, default=datetime.utcnow, doc="发布时间")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
+
+    def __repr__(self):
+        return '<Atracking:{}>'.format(self.title)
+
+
+class Scolumn(_Base):
+    """
+    专题专栏
+    @author lyfy
+    :return:[<Scolumn:xxx>]
+    """
+    id = db.Column(db.Integer, primary_key=True, doc="自增id")
+    title = db.Column(db.String(50), unique=True, doc="文章标题")
+    type = db.Column(db.Integer, doc="type状态码")
+    category = db.Column(db.Integer, doc="category状态码")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
+
+    def __repr__(self):
+        return '<Scolumn:{}>'.format(self.title)
+
+
+class Broadcast(_Base):
+    """"
+    轮播图
+    @author lyfy
+    :return:[<Broadcast:xxx>]
+    """
+    id = db.Column(db.Integer, primary_key=True, doc="自增id")
+    title = db.Column(db.String(50), unique=True, doc="文章标题")
+    imagePaths = db.Column(db.String(200), unique=True, doc="图片地址")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
+
+    def __repr__(self):
+        return '<Broadcast:{}>'.format(self.title)
+
+
+class Lpolicy(_Base):
+    """"
+    最新政策
+    @author lyfy
+    :return:[<Lpolicy:xxx>]
+    """
+    id = db.Column(db.Integer, primary_key=True, doc="自增ID")
+    title = db.Column(db.String(50), unique=True, nullable=True, doc="文章标题")
+    pubtime = db.Column(db.DateTime, default=datetime.utcnow, doc="发布时间")
+    shortContent = db.Column(db.Text, doc="文章正文")
+    source = db.Column(db.String(255), doc="文章来源")  # 来源
+    issuedno = db.Column(db.String(50))  # 发改运行〔xxx〕xxx号
+    issuedtime = db.Column(db.DateTime, default=datetime.utcnow)
+    link = db.Column(db.String(255))  # 不知名网址
+    type = db.Column(db.Integer, doc="type状态码")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="引用外键")  # 外键
+
+    def __repr__(self):
+        return '<Lpolicy:{}>'.format(self.title)
+
+
+class ServiceExpansion(_Base):
+    """
+    服务拓展
+    @author:lyfy
+    :return:
+    """
+    id = db.Column(db.Integer, primary_key=True, doc="自增ID")
+    title = db.Column(db.String(50), unique=True, doc="文章标题")
+    pubtime = db.Column(db.DateTime, default=datetime.utcnow, doc="发布时间")
+    shortContent = db.Column(db.String(255), doc="正文内容")
+    source = db.Column(db.String(255), doc="文章来源")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="引用外键")
+
+    def __repr__(self):
+        return '<ServiceExpansion:{}>'.format(self.title)
+
+
+# ↓↓↓↓↓↓后台表
+
 class omanagement(_Base):
     """
     机构管理
@@ -194,7 +298,7 @@ class umanagement(_Base):
     """
     id = db.Column(db.Integer, primary_key=True, doc="自增id")
     Ainstitutions = db.Column(db.String(30), doc="所属机构")
-    Theinstitution = db.Column(db.Strint(30), doc="所属机构简称")
+    Theinstitution = db.Column(db.String(30), doc="所属机构简称")
     Uname = db.Column(db.String(30), doc="用户名")
     Rname = db.Column(db.String(30), doc="真实姓名")
     IDnumber = db.Column(db.String(30), doc="身份证号")
@@ -219,9 +323,9 @@ class BPmanagement(_Base):
     Type = db.Column(db.String(30), doc="类型")
     link = db.Column(db.String(50), doc="链接")
     publisher = db.Column(db.String(30), doc="发布人")
-    Rtime = db.Column(db.Date(30), doc="发布时间")
+    Rtime = db.Column(db.Date(), doc="发布时间")
     Modifier = db.Column(db.String(30), doc="修改人")
-    Mtime = db.Column(db.Date(30), doc="修改时间")
+    Mtime = db.Column(db.Date(), doc="修改时间")
     sort = db.Column(db.Integer, doc="排序")
     settop = db.Column(db.String(30), doc="置顶")
 
@@ -236,9 +340,9 @@ class Mgroup(_Base):
     id = db.Column(db.Integer, primary_key=True, doc="自增id")
     Negroup = db.Column(db.String(30), doc="创业群体名称")
     Aperson = db.Column(db.String(20), doc="添加人")
-    Atime = db.Column(db.Date(30), doc="添加时间")
+    Atime = db.Column(db.Date(), doc="添加时间")
     Modifier = db.Column(db.String(30), doc="修改人")
-    Mtime = db.Column(db.Date(30), doc="修改时间")
+    Mtime = db.Column(db.Date(), doc="修改时间")
     sort = db.Column(db.Integer, doc="排序")
     settop = db.Column(db.String(30), doc="置顶")
 
@@ -254,8 +358,8 @@ class Dmanagement(_Base):
     title = db.Column(db.String(30), doc="标题")
     bintroduction = db.Column(db.String(100), doc="简介")
     Runit = db.Column(db.String(30), doc="发布单位")
-    Rtime = db.Column(db.Date(30), doc="发布时间")
-    Ctime = db.Column(db.Date(30), doc="创建时间")
+    Rtime = db.Column(db.Date(), doc="发布时间")
+    Ctime = db.Column(db.Date(), doc="创建时间")
     sort = db.Column(db.Integer, doc="排序")
     Rlogo = db.Column(db.String(40), doc="发布标识")
     settop = db.Column(db.String(20), doc="置顶")
@@ -414,9 +518,9 @@ class positionmanagement(_Base):
     link = db.Column(db.String(50), doc="链接")
     Route = db.Column(db.String(50), doc="路径")
     Insertuser = db.Column(db.String(30), doc="插入用户")
-    Insertiontime = db.Column(db.Date(30), doc="插入时间")
+    Insertiontime = db.Column(db.Date(), doc="插入时间")
     Updateuser = db.Column(db.String(30), doc="更新用户")
-    utime = db.Column(db.Date(30), doc="更新时间")
+    utime = db.Column(db.Date(), doc="更新时间")
     sort = db.Column(db.Integer, doc="排序")
     settop = db.Column(db.String(20), doc="置顶")
 
@@ -430,8 +534,8 @@ class Amanagement(_Base):
     """
     id = db.Column(db.Integer, primary_key=True, doc="自增id")
     title = db.Column(db.String(30), doc="标题")
-    Rtime = db.Column(db.Date(30), doc="发布时间")
-    Ctime = db.Column(db.Date(30), doc="创建时间")
+    Rtime = db.Column(db.Date(), doc="发布时间")
+    Ctime = db.Column(db.Date(), doc="创建时间")
     sort = db.Column(db.Integer, doc="排序")
     Rlogo = db.Column(db.String(20), doc="发布标识")
     settop = db.Column(db.String(20), doc="置顶")
@@ -464,13 +568,13 @@ class ActivityManage(_Base):
     activityType = db.Column(db.String(30), doc="活动种类")
     area = db.Column(db.String(20), doc="所属区域")
     activity = db.Column(db.String(130), doc="活动简介")
-    releaseUnit = db.Colun(db.String(30), doc="发布单位")
+    releaseUnit = db.Column(db.String(30), doc="发布单位")
     releasePeople = db.Column(db.String(20), doc="发布人")
-    releaseTime = db.Column(db.Date(30), doc="发布时间")
+    releaseTime = db.Column(db.Date(), doc="发布时间")
     source = db.Column(db.String(30), doc="来源")
-    mkdirTime = db.Column(db.Date(30), doc="创建时间")
+    mkdirTime = db.Column(db.Date(), doc="创建时间")
     modifier = db.Column(db.String(20), doc="修改人")
-    modifyTime = db.Column(db.Date(30), doc="修改时间")
+    modifyTime = db.Column(db.Date(), doc="修改时间")
 
     def __repr__(self):
         return '<ActivityManage>:{}'.format(self.title)
@@ -484,10 +588,10 @@ class Mascot(_Base):
     title = db.Column(db.String(50), doc="标题")
     intro = db.Column(db.String(30), doc="简介")
     releasePeople = db.Column(db.String(30), doc="发布人")
-    releaseTime = db.Column(db.Date(30), doc="发布时间")
-    mkdirTime = db.Column(db.Date(30), doc="创建时间")
+    releaseTime = db.Column(db.Date(), doc="发布时间")
+    mkdirTime = db.Column(db.Date(), doc="创建时间")
     modifier = db.Column(db.String(30), doc="修改人")
-    modifyTime = db.Column(db.Date(30), doc="修改时间")
+    modifyTime = db.Column(db.Date(), doc="修改时间")
     sort = db.Column(db.Integer, doc="排序")
     top = db.Column(db.String(20), doc="置顶")
     releaseNote = db.Column(db.String(20), doc="发布标识")
@@ -504,10 +608,10 @@ class Guest(_Base):
     title = db.Column(db.String(50), doc="标题")
     activityType = db.Column(db.String(50), doc="活动类别")
     publisher = db.Column(db.String(30), doc="发布人")
-    releaseTime = db.Column(db.Date(30), doc="发布时间")
-    mkdirTime = db.Column(db.Date(30), doc="创建时间")
+    releaseTime = db.Column(db.Date(), doc="发布时间")
+    mkdirTime = db.Column(db.Date(), doc="创建时间")
     modifier = db.Column(db.String(20), doc="修改人")
-    modifyTime = db.Column(db.Date(30), doc="修改时间")
+    modifyTime = db.Column(db.Date(), doc="修改时间")
     sort = db.Column(db.Integer, doc="排序")
     top = db.Column(db.String(20), doc="置顶")
     releaseNote = db.Column(db.String(30), doc="发布标识")
@@ -524,10 +628,10 @@ class Hall(_Base):
     title = db.Column(db.String(40), doc="标题")
     intro = db.Column(db.String(100), doc="简介")
     releasePeople = db.Column(db.String(20), doc="发布人")
-    releaseTime = db.Column(db.Date(30), doc="发布时间")
-    mkdirTime = db.Column(db.Date(30), doc="创建时间")
+    releaseTime = db.Column(db.Date(), doc="发布时间")
+    mkdirTime = db.Column(db.Date(), doc="创建时间")
     modifier = db.Column(db.String(20), doc="修改人")
-    modifyTime = db.Column(db.Date(20), doc="修改时间")
+    modifyTime = db.Column(db.Date(), doc="修改时间")
     sort = db.Column(db.Integer, doc="排序")
     top = db.Column(db.String(20), doc="置顶")
     releaseNote = db.Column(db.String(20), doc="发布标识")
@@ -545,9 +649,9 @@ class ActivityType(_Base):
     activityType = db.Column(db.String(30), doc="活动类别")
     activityIntro = db.Column(db.String(100), doc="活动简介")
     releasePeople = db.Column(db.String(30), doc="发布人")
-    releaseTime = db.Column(db.Date(30), doc="发布时间")
+    releaseTime = db.Column(db.Date(), doc="发布时间")
     modifier = db.Column(db.String(30), doc="更新人")
-    updateTime = db.Column(db.Date(30), doc="更新时间")
+    updateTime = db.Column(db.Date(), doc="更新时间")
     status = db.Column(db.String(20), doc="已启用")
     pageView = db.Column(db.Integer, doc="页面浏览量")
     href = db.Column(db.String(100), doc="参与方式跳转链接")
@@ -563,9 +667,9 @@ class CenterNew(_Base):
     id = db.Column(db.Integer, primary_key=True, doc="自增id")
     title = db.Column(db.String(50), doc="标题")
     intro = db.Column(db.String(100), doc="简介")
-    releaseTime = db.Column(db.Date(30), doc="发布时间")
-    mkdirTime = db.Column(db.Date(30), doc="创建时间")
-    modifyTime = db.Column(db.Date(30), doc="修改时间")
+    releaseTime = db.Column(db.Date(), doc="发布时间")
+    mkdirTime = db.Column(db.Date(), doc="创建时间")
+    modifyTime = db.Column(db.Date(), doc="修改时间")
     sort = db.Column(db.Integer, doc="排序")
     releaseNote = db.Column(db.String(30), doc="发布标识")
     top = db.Column(db.String(30), doc="置顶")
@@ -582,9 +686,9 @@ class LocalNew(_Base):
     id = db.Column(db.Integer, primary_key=True, doc="自增id")
     title = db.Column(db.String(50), doc="标题")
     intro = db.Column(db.String(100), doc="简介")
-    releaseTime = db.Column(db.Date(30), doc="发布时间")
-    mkdirTime = db.Column(db.Date(30), doc="创建时间")
-    modifyTime = db.Column(db.Date(30), doc="修改时间")
+    releaseTime = db.Column(db.Date(), doc="发布时间")
+    mkdirTime = db.Column(db.Date(), doc="创建时间")
+    modifyTime = db.Column(db.Date(), doc="修改时间")
     sort = db.Column(db.Integer, doc="排序")
     releaseNote = db.Column(db.String(30), doc="发布标识")
     top = db.Column(db.String(30), doc="置顶")
@@ -601,9 +705,9 @@ class Department(_Base):
     id = db.Column(db.Integer, primary_key=True, doc="自增id")
     title = db.Column(db.String(50), doc="标题")
     intro = db.Column(db.String(100), doc="简介")
-    releaseTime = db.Column(db.Date(30), doc="发布时间")
-    mkdirTime = db.Column(db.Date(30), doc="创建时间")
-    modifyTime = db.Column(db.Date(30), doc="修改时间")
+    releaseTime = db.Column(db.Date(), doc="发布时间")
+    mkdirTime = db.Column(db.Date(), doc="创建时间")
+    modifyTime = db.Column(db.Date(), doc="修改时间")
     sort = db.Column(db.Integer, doc="排序")
     releaseNote = db.Column(db.String(30), doc="发布标识")
     top = db.Column(db.String(30), doc="置顶")
@@ -620,9 +724,9 @@ class policy(_Base):
     id = db.Column(db.Integer, primary_key=True, doc="自增id")
     title = db.Column(db.String(50), doc="标题")
     intro = db.Column(db.String(100), doc="简介")
-    releaseTime = db.Column(db.Date(30), doc="发布时间")
-    mkdirTime = db.Column(db.Date(30), doc="创建时间")
-    modifyTime = db.Column(db.Date(30), doc="修改时间")
+    releaseTime = db.Column(db.Date(), doc="发布时间")
+    mkdirTime = db.Column(db.Date(), doc="创建时间")
+    modifyTime = db.Column(db.Date(), doc="修改时间")
     sort = db.Column(db.Integer, doc="排序")
     releaseNote = db.Column(db.String(30), doc="发布标识")
     top = db.Column(db.String(30), doc="置顶")
@@ -639,7 +743,7 @@ class LocalReport(_Base):
     id = db.Column(db.Integer, primary_key=True, doc="自增id")
     title = db.Column(db.String(50), doc="标题")
     intro = db.Column(db.String(100), doc="简介")
-    releaseTime = db.Column(db.Date(30), doc="发布时间")
+    releaseTime = db.Column(db.Date(), doc="发布时间")
     sort = db.Column(db.Integer, doc="排序")
     top = db.Column(db.String(30), doc="置顶")
     releaseNote = db.Column(db.String(30), doc="发布标识")
@@ -657,8 +761,8 @@ class PolicyRelease(_Base):
     number = db.Column(db.String(50), primary_key=True, unique=True, doc="文号")
     organization = db.Column(db.String(30), doc="发布机构")
     publisher = db.Column(db.String(30), doc="发布人")
-    releaseTime = db.Column(db.Date(30), doc="发布时间")
-    modifyTime = db.Column(db.Date(30), doc="修改时间")
+    releaseTime = db.Column(db.Date(), doc="发布时间")
+    modifyTime = db.Column(db.Date(), doc="修改时间")
     policyTheme = db.Column(db.String(30), doc="政策主题")
     animalKeyword = db.Column(db.String(30), doc="生态圈关键字")
     timerShaft = db.Column(db.String(30), doc="时间轴阶段")
@@ -667,7 +771,7 @@ class PolicyRelease(_Base):
     businessPeople = db.Column(db.String(50), doc="创业人群")
     businessService = db.Column(db.String(50), doc="创业服务")
     profession = db.Column(db.String(30), doc="行业")
-    policySort = db.Column(Integer, doc="政策排序")
+    policySort = db.Column(db.Integer, doc="政策排序")
     policyTop = db.Column(db.String(20), doc="政策置顶")
     releaseFlag = db.Column(db.String(20), doc="发布标识")
 
@@ -766,9 +870,9 @@ class BaseManage(_Base):
     area = db.Column(db.String(20), doc="区域")
     policyUnit = db.Column(db.String(30), doc="发布单位")
     creator = db.Column(db.String(20), doc="创建人")
-    createTime = db.Column(db.Date(30), doc="创建时间")
+    createTime = db.Column(db.Date(), doc="创建时间")
     modifier = db.Column(db.String(30), doc="修改人")
-    modifyTime = db.Column(db.Date(30), doc="修改时间")
+    modifyTime = db.Column(db.Date(), doc="修改时间")
     sort = db.Column(db.Integer, doc="排序")
     top = db.Column(db.String(20), doc="置顶")
 
@@ -788,7 +892,7 @@ class UserBrowsingMessage(_Base):
     customerPremise = db.Column(db.String(20), doc="用户所在地")
     userSystem = db.Column(db.String(20), doc="用户使用系统")
     userMachineCode = db.Column(db.String(20), doc="用户机器码")
-    userBrowsingTime = db.Column(db.Date(30), doc="用户浏览时长")
+    userBrowsingTime = db.Column(db.Date(), doc="用户浏览时长")
     userInformationClassification = db.Column(db.String(20), doc="用户信息分类")
 
     def __repr__(self):
@@ -821,124 +925,14 @@ class PilotManagement(_Base):
     id = db.Column(db.Integer, primary_key=True, doc="自增id")
     pilotName = db.Column(db.String(30), unique=True, doc="试验区名称")
     creator = db.Column(db.String(30), doc="创建人")
-    createTime = db.Column(db.Date(30), doc="创建时间")
+    createTime = db.Column(db.Date(), doc="创建时间")
     modifier = db.Column(db.String(30), doc="修改人")
-    modifyTime = db.Column(db.Date(30), doc="修改时间")
+    modifyTime = db.Column(db.Date(), doc="修改时间")
     sort = db.Column(db.Integer, doc="排序")
     top = db.Column(db.String(20), doc="置顶")
 
     def __repr__(self):
         return '<PilotManagement>:{}'.format(self.title)
-
-
-#
-#
-#
-#
-#
-#
-
-
-class Panalysis(_Base):
-    """"
-    政策分析
-    @author lyfy
-    :return:[<Panalysis:xxx>]
-    """
-    businessId = db.Column(db.Integer, primary_key=True, doc="id")
-    title = db.Column(db.String(50), unique=True, nullable=False, doc="标题")
-    type = db.Column(db.Integer, doc="type状态码")
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
-
-    def __repr__(self):
-        return '<Panalysis:{}>'.format(self.title)
-
-
-class Atracking(_Base):
-    """"
-    活动跟踪
-    @author lyfy
-    :return:[<Atracking:xxx>]
-    """
-    id = db.Column(db.Integer, primary_key=True, doc="自增ID")
-    title = db.Column(db.String(50), unique=True, doc="文章标题")
-    category = db.Column(db.String(50), unique=True, doc="cate状态码")
-    picPath = db.Column(db.String(50), unique=True, doc="图片地址")
-    source = db.Column(db.String(50), unique=True, doc="文章来源")  # 来源
-    publishTime = db.Column(db.DateTime, default=datetime.utcnow, doc="发布时间")
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
-
-    def __repr__(self):
-        return '<Atracking:{}>'.format(self.title)
-
-
-class Scolumn(_Base):
-    """
-    专题专栏
-    @author lyfy
-    :return:[<Scolumn:xxx>]
-    """
-    id = db.Column(db.Integer, primary_key=True, doc="自增id")
-    title = db.Column(db.String(50), unique=True, doc="文章标题")
-    type = db.Column(db.Integer, doc="type状态码")
-    category = db.Column(db.Integer, doc="category状态码")
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
-
-    def __repr__(self):
-        return '<Scolumn:{}>'.format(self.title)
-
-
-class Broadcast(_Base):
-    """"
-    轮播图
-    @author lyfy
-    :return:[<Broadcast:xxx>]
-    """
-    id = db.Column(db.Integer, primary_key=True, doc="自增id")
-    title = db.Column(db.String(50), unique=True, doc="文章标题")
-    imagePaths = db.Column(db.String(200), unique=True, doc="图片地址")
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="外键")  # 外键
-
-    def __repr__(self):
-        return '<Broadcast:{}>'.format(self.title)
-
-
-class Lpolicy(_Base):
-    """"
-    最新政策
-    @author lyfy
-    :return:[<Lpolicy:xxx>]
-    """
-    id = db.Column(db.Integer, primary_key=True, doc="自增ID")
-    title = db.Column(db.String(50), unique=True, nullable=True, doc="文章标题")
-    pubtime = db.Column(db.DateTime, default=datetime.utcnow, doc="发布时间")
-    shortContent = db.Column(db.Text, doc="文章正文")
-    source = db.Column(db.String(255), doc="文章来源")  # 来源
-    issuedno = db.Column(db.String(50))  # 发改运行〔xxx〕xxx号
-    issuedtime = db.Column(db.DateTime, default=datetime.utcnow)
-    link = db.Column(db.String(255))  # 不知名网址
-    type = db.Column(db.Integer, doc="type状态码")
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="引用外键")  # 外键
-
-    def __repr__(self):
-        return '<Lpolicy:{}>'.format(self.title)
-
-
-class ServiceExpansion(_Base):
-    """
-    服务拓展
-    @author:lyfy
-    :return:
-    """
-    id = db.Column(db.Integer, primary_key=True, doc="自增ID")
-    title = db.Column(db.String(50), unique=True, doc="文章标题")
-    pubtime = db.Column(db.DateTime, default=datetime.utcnow, doc="发布时间")
-    shortContent = db.Column(db.String(255), doc="正文内容")
-    source = db.Column(db.String(255), doc="文章来源")
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), doc="引用外键")
-
-    def __repr__(self):
-        return '<ServiceExpansion:{}>'.format(self.title)
 
 
 class PolicyStatistics(_Base):
