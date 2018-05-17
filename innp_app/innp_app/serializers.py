@@ -6,9 +6,9 @@ from flask import (Flask,request....)
 """
 from marshmallow import (Schema as _Schema, fields, validate)
 
-__all__ = ['CmemberSchema', 'LocalSchema', 'SocioGroupSchema', 'LpolicySchema','BaseCitySchema',
-           'PanalysisSchema', 'AtrackingSchema', 'ScolumnSchema', 'BroadcastSchema','DongTaiListSchema',
-           "ScolumnListSchema","NewDepartureListSchema",'PolicyAnalysisListSchema','ActivitytrackingListSchema',
+__all__ = ['CmemberSchema', 'LocalSchema', 'SocioGroupSchema', 'LpolicySchema', 'BaseCitySchema',
+           'PanalysisSchema', 'AtrackingSchema', 'ScolumnSchema', 'BroadcastSchema', 'DongTaiListSchema',
+           "ScolumnListSchema", "NewDepartureListSchema", 'PolicyAnalysisListSchema', 'ActivitytrackingListSchema',
            'ServiceExpansionSchema']
 
 
@@ -45,7 +45,7 @@ class OmanagementSchema(Schema):
     """
     机构管理
     """
-    Onumber = fields.String(validate=validate.Length(6,12), required=True)
+    Onumber = fields.String(validate=validate.Length(6, 12), required=True)
     Nauthority = fields.String(required=True)
     Oname = fields.String(required=True)
     Iabbreviation = fields.String(required=True)
@@ -62,6 +62,7 @@ class RmanagementSchema(Schema):
     """
     Rename = fields.String(required=True)
     Rdescription = fields.String(required=True)
+
 
 class UmanagementSchema(Schema):
     """
@@ -116,7 +117,7 @@ class DmanagementSchema(Schema):
     title = fields.String(required=True)
     bintroduction = fields.String(required=True)
     Runit = fields.String(required=True)
-    Rtime = fields.DateTime(required=True,dump_only=True)
+    Rtime = fields.DateTime(required=True, dump_only=True)
     Ctime = fields.DateTime(dump_only=True)
     sort = fields.Integer(required=True)
     Rlogo = fields.String(required=True)
@@ -158,6 +159,7 @@ class bmanagementSchema(Schema):
     category = fields.String(required=True)
     settop = fields.String(required=True)
 
+
 class TmanagementShema(Schema):
     """
     技术资讯管理
@@ -167,6 +169,7 @@ class TmanagementShema(Schema):
     sort = fields.Integer(required=True)
     category = fields.String(required=True)
     settop = fields.String(required=True)
+
 
 class MinstitutionsSchema(Schema):
     """
@@ -202,6 +205,7 @@ class TamanagementSchema(Schema):
     category = fields.String(required=True)
     settop = fields.String(required=True)
 
+
 class SitemanagementSchema(Schema):
     """
     场地资讯管理
@@ -211,6 +215,7 @@ class SitemanagementSchema(Schema):
     sort = fields.Integer(required=True)
     category = fields.String(required=True)
     settop = fields.String(required=True)
+
 
 class positionmanagementSchema(Schema):
     """
@@ -226,6 +231,7 @@ class positionmanagementSchema(Schema):
     sort = fields.Integer(required=True)
     settop = fields.String(required=True)
 
+
 class AmanagementSchema(Schema):
     """
     成果展示管理
@@ -237,6 +243,7 @@ class AmanagementSchema(Schema):
     Rlogo = fields.String(required=True)
     settop = fields.String(required=True)
 
+
 class MediamanageSchema(Schema):
     """
     媒体管理
@@ -246,6 +253,7 @@ class MediamanageSchema(Schema):
     mediaType = fields.String(required=True)
     href = fields.String(required=True)
     top = fields.String(required=True)
+
 
 class ActivityManageSchema(Schema):
     """
@@ -263,6 +271,7 @@ class ActivityManageSchema(Schema):
     modifier = fields.String(required=True)
     modifyTime = fields.DateTime(required=True)
 
+
 class MascotSchema(Schema):
     """
     吉祥物管理
@@ -277,6 +286,7 @@ class MascotSchema(Schema):
     sort = fields.Integer(required=True)
     top = fields.String(required=True)
     releaseNote = fields.String(required=True)
+
 
 class GuestSchema(Schema):
     """
@@ -293,6 +303,7 @@ class GuestSchema(Schema):
     top = fields.String(required=True)
     releaseNote = fields.String(required=True)
 
+
 class HallSchema(Schema):
     """
     展厅管理
@@ -308,6 +319,7 @@ class HallSchema(Schema):
     top = fields.String(required=True)
     releaseNote = fields.String(required=True)
 
+
 class ActivityTypeSchema(Schema):
     """
     活动类别管理
@@ -322,7 +334,6 @@ class ActivityTypeSchema(Schema):
     status = fields.String(required=True)
     pageView = fields.Integer(required=True)
     href = fields.String(required=True)
-
 
 
 class CmemberSchema(Schema):
@@ -377,8 +388,10 @@ class LpolicySchema(Schema_one):
     issuedtime = fields.DateTime(dump_only=True)
     issuedno = fields.String(required=True)
     type1 = fields.Integer(required=True)
-    link= fields.String(required=True)
-    data = fields.Nested('self',only=['id','title','pubtime','shortContent','issuedtime','issuedno','type1','link'],many=True)
+    link = fields.String(required=True)
+    data = fields.Nested('self',
+                         only=['id', 'title', 'pubtime', 'shortContent', 'issuedtime', 'issuedno', 'type1', 'link'],
+                         many=True)
 
 
 class PanalysisSchema(_Schema):
@@ -393,7 +406,7 @@ class PanalysisSchema(_Schema):
     code = fields.Integer(requeired=True)
     msg = fields.String(requeired=True)
     # data = fields.Nested('self', only=["businessId", "title", "type"], many=True)
-    data = fields.Nested("self",only=["businessId","title","type"],many=True)
+    data = fields.Nested("self", only=["businessId", "title", "type"], many=True)
 
 
 class AtrackingSchema(Schema_one):
@@ -407,7 +420,7 @@ class AtrackingSchema(Schema_one):
     # source = fields.String(validate=validate.Length(6, 12), required=True)
     # category = fields.String(validate=validate.Length(6, 12), required=True)
 
-    data = fields.Nested('self', only=["id", "title", "picPath", "publishTime", "source","category"],many=True)
+    data = fields.Nested('self', only=["id", "title", "picPath", "publishTime", "source", "category"], many=True)
 
 
 class ScolumnSchema(Schema_one):
@@ -418,7 +431,7 @@ class ScolumnSchema(Schema_one):
     """
     type = fields.Integer(required=True)
     category = fields.Integer(required=True)
-    data = fields.Nested('self', only=["id", "title","type","category"], many=True)
+    data = fields.Nested('self', only=["id", "title", "type", "category"], many=True)
 
 
 class BroadcastSchema(Schema_one):
@@ -457,7 +470,7 @@ class AllNewGaiListDataSchema(Schema_one):
     allCounts = fields.Integer(dump_only=True)
     currentPage = fields.Integer(dump_only=True)
     # list = fields.List(fields.Field())
-    list = fields.Nested('self', only=["id", "title", "category","type"],
+    list = fields.Nested('self', only=["id", "title", "category", "type"],
                          many=True)
     pageCounts = fields.Integer(dump_only=True)
     pageSize = fields.Integer(dump_only=True)
@@ -476,7 +489,8 @@ class NewDepartureListDataSchema(_Schema):
     data = fields.String(required=True)
     allCounts = fields.Integer(dump_only=True)
     currentPage = fields.Integer(dump_only=True)
-    list = fields.Nested('self', only=["id", "title",  "pubtime", "shortContent", "source","issuedno","issuedtime","link"],
+    list = fields.Nested('self',
+                         only=["id", "title", "pubtime", "shortContent", "source", "issuedno", "issuedtime", "link"],
                          many=True)
     pageCounts = fields.Integer(dump_only=True)
     pageSize = fields.Integer(dump_only=True)
@@ -500,7 +514,7 @@ class PolicyAnalysisListSchema(Schema_one):
     author:lyfy
     :return:Id，title,category,pubTime
     """
-    data = fields.Nested('self', only=["businessId", "title"],many=True)
+    data = fields.Nested('self', only=["businessId", "title"], many=True)
 
 
 class ActivitytrackingListSchema(Schema_one):
@@ -509,7 +523,7 @@ class ActivitytrackingListSchema(Schema_one):
     author:lyfy
     :return:Id，title,category,pubTime
     """
-    data = fields.Nested('self', only=["id", "title", "picPath", "publishTime", "source","category"],many=True)
+    data = fields.Nested('self', only=["id", "title", "picPath", "publishTime", "source", "category"], many=True)
 
 
 class ServiceExpansionSchema(Schema_one):
@@ -521,4 +535,4 @@ class ServiceExpansionSchema(Schema_one):
     pubtime = fields.DateTime(dump_only=True)
     shortContent = fields.String(validate=validate.Length(6, 12), required=True)
     source = fields.String(validate=validate.Length(6, 12), required=True)
-    data = fields.Nested('self',only=['id','title','pubtime','shortContent','source'],many=True)
+    data = fields.Nested('self', only=['id', 'title', 'pubtime', 'shortContent', 'source'], many=True)
