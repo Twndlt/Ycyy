@@ -252,6 +252,7 @@ class MediamanageSchema(Schema):
     businessType = fields.String(required=True)
     mediaType = fields.String(required=True)
     href = fields.String(required=True)
+    sort =fields.Integer(required = True)
     top = fields.String(required=True)
 
 

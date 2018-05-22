@@ -18,3 +18,4 @@ class IndexModelView:
             self.data = items_data
             self.code = 200
             self.msg = "数据已取出!"
+
